@@ -1,0 +1,301 @@
+sale_id,date,region,product_category,product_name,units_sold,unit_price,revenue,discount,sales_rep,customer_id
+1,2024-01-05,East,Electronics,Wireless Headphones,15,89.99,1349.85,0.0,Alice Chen,C001
+2,2024-01-07,West,Electronics,Smart Watch,8,199.99,1599.92,0.0,Bob Martinez,C002
+3,2024-01-10,East,Office Supplies,Ergonomic Keyboard,22,74.99,1649.78,5.0,Alice Chen,C003
+4,2024-01-12,North,Software,Project Management Tool,5,299.99,1499.95,0.0,Charlie Kim,C004
+5,2024-01-15,South,Electronics,Bluetooth Speaker,18,49.99,899.82,10.0,Diana Patel,C005
+6,2024-01-18,West,Office Supplies,Standing Desk Mat,12,39.99,479.88,0.0,Bob Martinez,C006
+7,2024-01-20,East,Software,CRM License,3,499.99,1499.97,0.0,Alice Chen,C007
+8,2024-01-22,North,Electronics,USB-C Hub,30,34.99,1049.70,0.0,Charlie Kim,C008
+9,2024-01-25,South,Office Supplies,Whiteboard Set,10,59.99,599.90,5.0,Diana Patel,C009
+10,2024-01-28,East,Electronics,Noise Cancelling Earbuds,20,129.99,2599.80,0.0,Alice Chen,C010
+11,2024-02-01,West,Software,Analytics Dashboard,4,399.99,1599.96,0.0,Bob Martinez,C011
+12,2024-02-03,North,Electronics,Portable Monitor,7,249.99,1749.93,0.0,Charlie Kim,C012
+13,2024-02-05,East,Office Supplies,Mesh Office Chair,6,189.99,1139.94,10.0,Alice Chen,C013
+14,2024-02-08,South,Electronics,Webcam 4K,25,79.99,1999.75,0.0,Diana Patel,C014
+15,2024-02-10,West,Office Supplies,Cable Management Kit,35,19.99,699.65,0.0,Bob Martinez,C015
+16,2024-02-12,East,Software,Video Conferencing Tool,8,149.99,1199.92,5.0,Eve Johnson,C016
+17,2024-02-15,North,Electronics,Wireless Mouse,40,29.99,1199.60,0.0,Charlie Kim,C017
+18,2024-02-18,South,Office Supplies,Desk Lamp LED,15,44.99,674.85,0.0,Diana Patel,C018
+19,2024-02-20,West,Electronics,Mechanical Keyboard,12,109.99,1319.88,0.0,Frank Wilson,C019
+20,2024-02-22,East,Software,Cloud Storage Plan,10,99.99,999.90,0.0,Alice Chen,C020
+21,2024-02-25,North,Electronics,Power Bank 20000mAh,28,39.99,1119.72,5.0,Charlie Kim,C001
+22,2024-02-28,South,Office Supplies,Monitor Stand,18,54.99,989.82,0.0,Diana Patel,C002
+23,2024-03-02,East,Electronics,Smart Display,9,179.99,1619.91,0.0,Eve Johnson,C003
+24,2024-03-05,West,Software,Email Marketing Tool,6,249.99,1499.94,10.0,Frank Wilson,C004
+25,2024-03-07,North,Electronics,Wireless Charger,45,24.99,1124.55,0.0,Charlie Kim,C005
+26,2024-03-10,South,Office Supplies,Ergonomic Mouse Pad,50,14.99,749.50,0.0,Diana Patel,C006
+27,2024-03-12,East,Electronics,Action Camera,11,299.99,3299.89,0.0,Alice Chen,C007
+28,2024-03-15,West,Office Supplies,File Cabinet,4,149.99,599.96,0.0,Bob Martinez,C008
+29,2024-03-18,North,Software,Accounting Software,3,599.99,1799.97,5.0,Charlie Kim,C009
+30,2024-03-20,South,Electronics,Tablet Stand,20,34.99,699.80,0.0,Diana Patel,C010
+31,2024-03-22,East,Office Supplies,Paper Shredder,8,89.99,719.92,0.0,Eve Johnson,C011
+32,2024-03-25,West,Electronics,Smart Thermostat,14,129.99,1819.86,0.0,Frank Wilson,C012
+33,2024-03-28,North,Office Supplies,Label Maker,22,29.99,659.78,10.0,Charlie Kim,C013
+34,2024-03-30,South,Software,HR Management Suite,2,799.99,1599.98,0.0,Diana Patel,C014
+35,2024-04-02,East,Electronics,True Wireless Earbuds,35,69.99,2449.65,0.0,Alice Chen,C015
+36,2024-04-04,West,Office Supplies,Sit-Stand Desk Converter,5,229.99,1149.95,5.0,Bob Martinez,C016
+37,2024-04-07,North,Electronics,Dash Cam,16,99.99,1599.84,0.0,Charlie Kim,C017
+38,2024-04-10,South,Software,Inventory Tracker,7,199.99,1399.93,0.0,Diana Patel,C018
+39,2024-04-12,East,Electronics,Ring Light,30,39.99,1199.70,0.0,Eve Johnson,C019
+40,2024-04-15,West,Office Supplies,Dry Erase Markers Set,60,9.99,599.40,0.0,Frank Wilson,C020
+41,2024-04-18,North,Electronics,Smart Plug Pack,25,49.99,1249.75,0.0,Charlie Kim,C001
+42,2024-04-20,South,Office Supplies,Desk Organizer,18,24.99,449.82,10.0,Diana Patel,C002
+43,2024-04-22,East,Software,Design Tool Pro,4,349.99,1399.96,0.0,Alice Chen,C003
+44,2024-04-25,West,Electronics,Portable SSD 1TB,10,119.99,1199.90,0.0,Bob Martinez,C004
+45,2024-04-28,North,Office Supplies,Acoustic Panels,8,79.99,639.92,0.0,Charlie Kim,C005
+46,2024-05-01,South,Electronics,Fitness Tracker,22,59.99,1319.78,5.0,Diana Patel,C006
+47,2024-05-03,East,Office Supplies,Wireless Presenter,15,34.99,524.85,0.0,Eve Johnson,C007
+48,2024-05-05,West,Software,Cybersecurity Suite,3,499.99,1499.97,0.0,Frank Wilson,C008
+49,2024-05-08,North,Electronics,Smart Light Bulbs,40,19.99,799.60,0.0,Charlie Kim,C009
+50,2024-05-10,South,Office Supplies,Document Scanner,6,179.99,1079.94,0.0,Diana Patel,C010
+51,2024-05-12,East,Electronics,Streaming Microphone,14,149.99,2099.86,10.0,Alice Chen,C011
+52,2024-05-15,West,Electronics,Robot Vacuum,5,349.99,1749.95,0.0,Bob Martinez,C012
+53,2024-05-18,North,Office Supplies,Desk Fan USB,30,22.99,689.70,0.0,Charlie Kim,C013
+54,2024-05-20,South,Software,Learning Platform License,8,199.99,1599.92,0.0,Diana Patel,C014
+55,2024-05-22,East,Office Supplies,Laptop Backpack,20,49.99,999.80,5.0,Eve Johnson,C015
+56,2024-05-25,West,Electronics,E-Reader,12,129.99,1559.88,0.0,Frank Wilson,C016
+57,2024-05-28,North,Electronics,VR Headset,4,399.99,1599.96,0.0,Charlie Kim,C017
+58,2024-05-30,South,Office Supplies,Printer Toner Pack,10,89.99,899.90,0.0,Diana Patel,C018
+59,2024-06-02,East,Electronics,Smart Scale,18,69.99,1259.82,0.0,Alice Chen,C019
+60,2024-06-04,West,Software,SEO Tool Pro,6,249.99,1499.94,10.0,Bob Martinez,C020
+61,2024-06-07,North,Office Supplies,Noise Machine,12,39.99,479.88,0.0,Charlie Kim,C001
+62,2024-06-10,South,Electronics,Solar Power Bank,20,49.99,999.80,0.0,Diana Patel,C002
+63,2024-06-12,East,Electronics,Laptop Cooling Pad,25,29.99,749.75,5.0,Eve Johnson,C003
+64,2024-06-15,West,Office Supplies,Magnetic Whiteboard,8,99.99,799.92,0.0,Frank Wilson,C004
+65,2024-06-18,North,Electronics,Mini Projector,6,199.99,1199.94,0.0,Charlie Kim,C005
+66,2024-06-20,South,Software,Social Media Manager,5,179.99,899.95,0.0,Diana Patel,C006
+67,2024-06-22,East,Office Supplies,Standing Desk,3,449.99,1349.97,0.0,Alice Chen,C007
+68,2024-06-25,West,Electronics,Smart Doorbell,15,149.99,2249.85,0.0,Bob Martinez,C008
+69,2024-06-28,North,Office Supplies,Task Board,20,19.99,399.80,10.0,Charlie Kim,C009
+70,2024-06-30,South,Electronics,Digital Photo Frame,10,79.99,799.90,0.0,Diana Patel,C010
+71,2024-07-02,East,Electronics,Gaming Mouse,28,59.99,1679.72,0.0,Alice Chen,C011
+72,2024-07-04,West,Software,Backup Solution,4,299.99,1199.96,5.0,Frank Wilson,C012
+73,2024-07-07,North,Electronics,Portable Speaker,20,89.99,1799.80,0.0,Charlie Kim,C013
+74,2024-07-10,South,Office Supplies,Ergonomic Footrest,12,44.99,539.88,0.0,Diana Patel,C014
+75,2024-07-12,East,Office Supplies,Pen Set Premium,30,24.99,749.70,0.0,Eve Johnson,C015
+76,2024-07-15,West,Electronics,Air Purifier,6,199.99,1199.94,0.0,Bob Martinez,C016
+77,2024-07-18,North,Software,Database Manager,3,399.99,1199.97,10.0,Charlie Kim,C017
+78,2024-07-20,South,Electronics,Smart Water Bottle,35,29.99,1049.65,0.0,Diana Patel,C018
+79,2024-07-22,East,Electronics,Wireless Keyboard,22,79.99,1759.78,0.0,Alice Chen,C019
+80,2024-07-25,West,Office Supplies,Privacy Screen,10,59.99,599.90,5.0,Frank Wilson,C020
+81,2024-07-28,North,Electronics,Trail Camera,8,149.99,1199.92,0.0,Charlie Kim,C001
+82,2024-07-30,South,Office Supplies,Binder Set,40,12.99,519.60,0.0,Diana Patel,C002
+83,2024-08-02,East,Software,AI Writing Assistant,10,99.99,999.90,0.0,Eve Johnson,C003
+84,2024-08-04,West,Electronics,Drone Mini,4,299.99,1199.96,0.0,Bob Martinez,C004
+85,2024-08-07,North,Office Supplies,Clip Board Set,50,7.99,399.50,10.0,Charlie Kim,C005
+86,2024-08-10,South,Electronics,Wireless Earbuds Sport,20,69.99,1399.80,0.0,Diana Patel,C006
+87,2024-08-12,East,Electronics,Network Switch,6,129.99,779.94,0.0,Alice Chen,C007
+88,2024-08-15,West,Software,Project Planner,8,149.99,1199.92,5.0,Frank Wilson,C008
+89,2024-08-18,North,Electronics,Smart Smoke Detector,15,49.99,749.85,0.0,Charlie Kim,C009
+90,2024-08-20,South,Office Supplies,Desk Calendar,25,14.99,374.75,0.0,Diana Patel,C010
+91,2024-08-22,East,Office Supplies,Cable Adapter Set,35,19.99,699.65,0.0,Eve Johnson,C011
+92,2024-08-25,West,Electronics,Electric Screwdriver,12,59.99,719.88,0.0,Bob Martinez,C012
+93,2024-08-28,North,Software,Survey Builder,5,199.99,999.95,10.0,Charlie Kim,C013
+94,2024-08-30,South,Electronics,Weather Station,8,89.99,719.92,0.0,Diana Patel,C014
+95,2024-09-02,East,Electronics,Portable DAC,10,149.99,1499.90,0.0,Alice Chen,C015
+96,2024-09-04,West,Office Supplies,Bookend Set,20,24.99,499.80,5.0,Frank Wilson,C016
+97,2024-09-07,North,Electronics,Smart Garage Opener,6,179.99,1079.94,0.0,Charlie Kim,C017
+98,2024-09-10,South,Software,Time Tracking App,12,49.99,599.88,0.0,Diana Patel,C018
+99,2024-09-12,East,Office Supplies,Laptop Sleeve,25,34.99,874.75,0.0,Eve Johnson,C019
+100,2024-09-15,West,Electronics,Security Camera Indoor,10,99.99,999.90,0.0,Bob Martinez,C020
+101,2024-09-18,North,Office Supplies,Sticky Notes Bulk,60,5.99,359.40,10.0,Charlie Kim,C001
+102,2024-09-20,South,Electronics,Smart Lock,7,199.99,1399.93,0.0,Diana Patel,C002
+103,2024-09-22,East,Electronics,External HDD 2TB,15,79.99,1199.85,0.0,Alice Chen,C003
+104,2024-09-25,West,Software,Presentation Maker,6,129.99,779.94,5.0,Frank Wilson,C004
+105,2024-09-28,North,Electronics,Cordless Vacuum,5,249.99,1249.95,0.0,Charlie Kim,C005
+106,2024-09-30,South,Office Supplies,Tape Dispenser Set,30,9.99,299.70,0.0,Diana Patel,C006
+107,2024-10-02,East,Electronics,Smart Glasses,4,349.99,1399.96,0.0,Alice Chen,C007
+108,2024-10-04,West,Electronics,Mesh WiFi System,8,199.99,1599.92,10.0,Bob Martinez,C008
+109,2024-10-07,North,Office Supplies,Pen Holder,35,14.99,524.65,0.0,Charlie Kim,C009
+110,2024-10-10,South,Software,Chatbot Builder,5,299.99,1499.95,0.0,Diana Patel,C010
+111,2024-10-12,East,Office Supplies,Surge Protector,20,29.99,599.80,5.0,Eve Johnson,C011
+112,2024-10-15,West,Electronics,Sonic Toothbrush,18,49.99,899.82,0.0,Frank Wilson,C012
+113,2024-10-18,North,Electronics,Heated Mouse Pad,14,39.99,559.86,0.0,Charlie Kim,C013
+114,2024-10-20,South,Office Supplies,Stapler Heavy Duty,10,19.99,199.90,0.0,Diana Patel,C014
+115,2024-10-22,East,Software,Form Builder Pro,7,99.99,699.93,0.0,Alice Chen,C015
+116,2024-10-25,West,Electronics,Smart Body Scale,15,69.99,1049.85,10.0,Bob Martinez,C016
+117,2024-10-28,North,Office Supplies,Wall Clock Modern,8,44.99,359.92,0.0,Charlie Kim,C017
+118,2024-10-30,South,Electronics,Car Phone Mount,40,14.99,599.60,0.0,Diana Patel,C018
+119,2024-11-02,East,Electronics,Laptop Stand Aluminum,12,59.99,719.88,0.0,Eve Johnson,C019
+120,2024-11-04,West,Software,Newsletter Platform,4,199.99,799.96,5.0,Frank Wilson,C020
+121,2024-11-07,North,Electronics,Digital Thermometer,25,24.99,624.75,0.0,Charlie Kim,C001
+122,2024-11-10,South,Office Supplies,Marker Board,6,79.99,479.94,0.0,Diana Patel,C002
+123,2024-11-12,East,Office Supplies,Desk Mat XL,18,34.99,629.82,10.0,Alice Chen,C003
+124,2024-11-15,West,Electronics,Streaming TV Stick,20,39.99,799.80,0.0,Bob Martinez,C004
+125,2024-11-18,North,Software,Mind Mapping Tool,6,89.99,539.94,0.0,Charlie Kim,C005
+126,2024-11-20,South,Electronics,LED Strip Lights,30,19.99,599.70,0.0,Diana Patel,C006
+127,2024-11-22,East,Electronics,Conference Speaker,5,199.99,999.95,5.0,Eve Johnson,C007
+128,2024-11-25,West,Office Supplies,Filing Folders Set,40,12.99,519.60,0.0,Frank Wilson,C008
+129,2024-11-28,North,Electronics,Handheld Scanner,10,99.99,999.90,0.0,Charlie Kim,C009
+130,2024-11-30,South,Office Supplies,Planner 2025,22,16.99,373.78,10.0,Diana Patel,C010
+131,2024-12-02,East,Software,Cloud Backup Pro,8,149.99,1199.92,0.0,Alice Chen,C011
+132,2024-12-04,West,Electronics,Smart Mug,14,29.99,419.86,0.0,Bob Martinez,C012
+133,2024-12-07,North,Office Supplies,Paper Trimmer,6,49.99,299.94,5.0,Charlie Kim,C013
+134,2024-12-10,South,Electronics,Bluetooth OBD Reader,12,34.99,419.88,0.0,Diana Patel,C014
+135,2024-12-12,East,Electronics,External SSD 500GB,10,89.99,899.90,0.0,Eve Johnson,C015
+136,2024-12-15,West,Software,Kanban Board Premium,5,119.99,599.95,0.0,Frank Wilson,C016
+137,2024-12-18,North,Electronics,Wireless Doorbell,20,44.99,899.80,10.0,Charlie Kim,C017
+138,2024-12-20,South,Office Supplies,Cork Board Large,8,29.99,239.92,0.0,Diana Patel,C018
+139,2024-12-22,East,Office Supplies,USB Desk Fan,15,19.99,299.85,0.0,Alice Chen,C019
+140,2024-12-25,West,Electronics,Smart Humidifier,10,59.99,599.90,5.0,Bob Martinez,C020
+141,2024-12-28,North,Software,Password Manager,15,49.99,749.85,0.0,Charlie Kim,C001
+142,2024-12-30,South,Electronics,Phone Gimbal,6,129.99,779.94,0.0,Diana Patel,C002
+143,2024-01-03,East,Electronics,USB Microphone,16,54.99,879.84,0.0,Alice Chen,C003
+144,2024-01-08,West,Software,Wireframe Tool,5,179.99,899.95,10.0,Frank Wilson,C004
+145,2024-01-13,North,Office Supplies,Desk Clock Digital,20,22.99,459.80,0.0,Charlie Kim,C005
+146,2024-01-17,South,Electronics,Smart Irrigation,4,149.99,599.96,0.0,Diana Patel,C006
+147,2024-01-21,East,Office Supplies,Highlighter Set,45,8.99,404.55,5.0,Eve Johnson,C007
+148,2024-01-26,West,Electronics,Portable Projector HD,3,399.99,1199.97,0.0,Bob Martinez,C008
+149,2024-02-02,North,Electronics,WiFi Range Extender,18,44.99,809.82,0.0,Charlie Kim,C009
+150,2024-02-06,South,Software,Invoice Generator,8,79.99,639.92,10.0,Diana Patel,C010
+151,2024-02-09,East,Electronics,Smart Plug Multi,22,34.99,769.78,0.0,Alice Chen,C011
+152,2024-02-14,West,Office Supplies,Pen Refill Pack,60,4.99,299.40,0.0,Frank Wilson,C012
+153,2024-02-17,North,Office Supplies,Index Cards Bulk,50,6.99,349.50,5.0,Charlie Kim,C013
+154,2024-02-21,South,Electronics,Dash Camera Pro,6,179.99,1079.94,0.0,Diana Patel,C014
+155,2024-02-24,East,Software,Video Editor Lite,10,69.99,699.90,0.0,Eve Johnson,C015
+156,2024-03-01,West,Electronics,Solar Charger Panel,8,89.99,719.92,10.0,Bob Martinez,C016
+157,2024-03-04,North,Electronics,Bluetooth Adapter,35,14.99,524.65,0.0,Charlie Kim,C017
+158,2024-03-08,South,Office Supplies,Report Cover Set,25,11.99,299.75,0.0,Diana Patel,C018
+159,2024-03-11,East,Electronics,Wi-Fi Camera Outdoor,7,129.99,909.93,5.0,Alice Chen,C019
+160,2024-03-14,West,Software,Scheduling App Pro,6,99.99,599.94,0.0,Frank Wilson,C020
+161,2024-03-17,North,Office Supplies,Paper Weight Set,12,19.99,239.88,0.0,Charlie Kim,C001
+162,2024-03-22,South,Electronics,Heated Blanket USB,10,49.99,499.90,10.0,Diana Patel,C002
+163,2024-03-26,East,Office Supplies,Clip Organizer,30,9.99,299.70,0.0,Eve Johnson,C003
+164,2024-03-29,West,Electronics,Soundbar Compact,5,149.99,749.95,0.0,Bob Martinez,C004
+165,2024-04-01,North,Software,Bug Tracker,4,249.99,999.96,5.0,Charlie Kim,C005
+166,2024-04-05,South,Electronics,Massage Gun Mini,8,89.99,719.92,0.0,Diana Patel,C006
+167,2024-04-08,East,Electronics,Airtag Alternative,40,29.99,1199.60,0.0,Alice Chen,C007
+168,2024-04-11,West,Office Supplies,Desktop Shelf,6,69.99,419.94,10.0,Frank Wilson,C008
+169,2024-04-14,North,Electronics,Smart Mirror,3,299.99,899.97,0.0,Charlie Kim,C009
+170,2024-04-17,South,Office Supplies,Business Card Holder,25,12.99,324.75,0.0,Diana Patel,C010
+171,2024-04-20,East,Software,API Testing Tool,5,199.99,999.95,0.0,Eve Johnson,C011
+172,2024-04-23,West,Electronics,UV Sanitizer Box,12,39.99,479.88,5.0,Bob Martinez,C012
+173,2024-04-26,North,Office Supplies,Notebook Premium,18,15.99,287.82,0.0,Charlie Kim,C013
+174,2024-04-29,South,Electronics,Selfie Light Ring,20,24.99,499.80,0.0,Diana Patel,C014
+175,2024-05-02,East,Electronics,HDMI Wireless,8,99.99,799.92,10.0,Alice Chen,C015
+176,2024-05-06,West,Software,Customer Survey Tool,4,149.99,599.96,0.0,Frank Wilson,C016
+177,2024-05-09,North,Electronics,Desktop Charger Hub,15,69.99,1049.85,0.0,Charlie Kim,C017
+178,2024-05-13,South,Office Supplies,Desk Name Plate,10,29.99,299.90,5.0,Diana Patel,C018
+179,2024-05-16,East,Office Supplies,Binder Clips Assorted,50,6.99,349.50,0.0,Eve Johnson,C019
+180,2024-05-19,West,Electronics,Smart Garden Kit,6,149.99,899.94,0.0,Bob Martinez,C020
+181,2024-05-22,North,Software,Log Monitor,3,299.99,899.97,10.0,Charlie Kim,C001
+182,2024-05-25,South,Electronics,Qi Charger Stand,18,34.99,629.82,0.0,Diana Patel,C002
+183,2024-05-28,East,Electronics,Travel Adapter Universal,25,19.99,499.75,0.0,Alice Chen,C003
+184,2024-06-01,West,Office Supplies,Monitor Light Bar,10,49.99,499.90,5.0,Frank Wilson,C004
+185,2024-06-03,North,Electronics,Smart Coffee Mug,12,39.99,479.88,0.0,Charlie Kim,C005
+186,2024-06-06,South,Software,Document Signer,8,79.99,639.92,0.0,Diana Patel,C006
+187,2024-06-09,East,Office Supplies,Paper Clips Jumbo,40,4.99,199.60,10.0,Eve Johnson,C007
+188,2024-06-12,West,Electronics,Desk Heater,6,59.99,359.94,0.0,Bob Martinez,C008
+189,2024-06-15,North,Office Supplies,Rubber Bands Bulk,30,3.99,119.70,0.0,Charlie Kim,C009
+190,2024-06-18,South,Electronics,Neck Fan Portable,22,24.99,549.78,5.0,Diana Patel,C010
+191,2024-06-21,East,Electronics,HDMI Capture Card,7,89.99,629.93,0.0,Alice Chen,C011
+192,2024-06-24,West,Software,Code Snippet Manager,10,39.99,399.90,0.0,Frank Wilson,C012
+193,2024-06-27,North,Electronics,Alarm Clock Smart,15,49.99,749.85,10.0,Charlie Kim,C013
+194,2024-06-30,South,Office Supplies,Push Pins Box,50,3.49,174.50,0.0,Diana Patel,C014
+195,2024-07-03,East,Office Supplies,Correction Tape Pack,35,5.99,209.65,0.0,Eve Johnson,C015
+196,2024-07-06,West,Electronics,Car Charger Fast,20,19.99,399.80,5.0,Bob Martinez,C016
+197,2024-07-09,North,Software,Compliance Checker,3,499.99,1499.97,0.0,Charlie Kim,C017
+198,2024-07-13,South,Electronics,Phone Stand Wood,18,14.99,269.82,0.0,Diana Patel,C018
+199,2024-07-16,East,Electronics,Multi-Port Charger,12,79.99,959.88,10.0,Alice Chen,C019
+200,2024-07-19,West,Office Supplies,Wrist Rest Gel,15,24.99,374.85,0.0,Frank Wilson,C020
+201,2024-07-22,North,Electronics,Smart Night Light,25,19.99,499.75,0.0,Charlie Kim,C001
+202,2024-07-25,South,Software,Receipt Scanner,6,59.99,359.94,5.0,Diana Patel,C002
+203,2024-07-28,East,Office Supplies,Envelope Pack,30,8.99,269.70,0.0,Eve Johnson,C003
+204,2024-08-01,West,Electronics,Bluetooth Transmitter,14,34.99,489.86,0.0,Bob Martinez,C004
+205,2024-08-04,North,Office Supplies,Stamp Set Custom,8,44.99,359.92,10.0,Charlie Kim,C005
+206,2024-08-07,South,Electronics,Mini Fridge USB,4,99.99,399.96,0.0,Diana Patel,C006
+207,2024-08-10,East,Electronics,Cable Tester,10,29.99,299.90,0.0,Alice Chen,C007
+208,2024-08-13,West,Software,Agenda Planner App,12,29.99,359.88,5.0,Frank Wilson,C008
+209,2024-08-16,North,Electronics,Timer Kitchen Smart,20,24.99,499.80,0.0,Charlie Kim,C009
+210,2024-08-19,South,Office Supplies,Glue Gun Cordless,15,22.99,344.85,0.0,Diana Patel,C010
+211,2024-08-22,East,Software,API Gateway Manager,3,399.99,1199.97,0.0,Eve Johnson,C011
+212,2024-08-25,West,Electronics,Dictation Recorder,8,69.99,559.92,10.0,Bob Martinez,C012
+213,2024-08-28,North,Office Supplies,Rubber Stamp Ink,25,7.99,199.75,0.0,Charlie Kim,C013
+214,2024-08-31,South,Electronics,Pet Camera WiFi,6,89.99,539.94,0.0,Diana Patel,C014
+215,2024-09-03,East,Electronics,Screen Cleaner Kit,30,14.99,449.70,5.0,Alice Chen,C015
+216,2024-09-06,West,Office Supplies,Badge Holder Set,20,9.99,199.80,0.0,Frank Wilson,C016
+217,2024-09-09,North,Electronics,TWS Earbuds Pro,10,99.99,999.90,0.0,Charlie Kim,C017
+218,2024-09-12,South,Software,Password Vault Team,4,149.99,599.96,10.0,Diana Patel,C018
+219,2024-09-15,East,Office Supplies,Pencil Sharpener Electric,12,34.99,419.88,0.0,Eve Johnson,C019
+220,2024-09-18,West,Electronics,Solar Panel Portable,5,179.99,899.95,0.0,Bob Martinez,C020
+221,2024-09-21,North,Office Supplies,Accordion Folder,18,15.99,287.82,5.0,Charlie Kim,C001
+222,2024-09-24,South,Electronics,LED Monitor Light,8,54.99,439.92,0.0,Diana Patel,C002
+223,2024-09-27,East,Electronics,Thunderbolt Dock,4,249.99,999.96,0.0,Alice Chen,C003
+224,2024-09-30,West,Software,Team Wiki Builder,6,99.99,599.94,10.0,Frank Wilson,C004
+225,2024-10-03,North,Electronics,Digital Pen Tablet,7,129.99,909.93,0.0,Charlie Kim,C005
+226,2024-10-06,South,Office Supplies,Scissors Set,25,10.99,274.75,5.0,Diana Patel,C006
+227,2024-10-09,East,Office Supplies,Photo Paper Pack,20,16.99,339.80,0.0,Eve Johnson,C007
+228,2024-10-12,West,Electronics,3D Printer Pen,10,39.99,399.90,0.0,Bob Martinez,C008
+229,2024-10-15,North,Software,Feature Flag Tool,3,199.99,599.97,0.0,Charlie Kim,C009
+230,2024-10-18,South,Electronics,Bike Phone Mount,30,14.99,449.70,10.0,Diana Patel,C010
+231,2024-10-21,East,Electronics,Podcast Mixer,5,179.99,899.95,0.0,Alice Chen,C011
+232,2024-10-24,West,Office Supplies,Tape Runner Set,15,7.99,119.85,0.0,Frank Wilson,C012
+233,2024-10-27,North,Electronics,Key Finder Smart,20,29.99,599.80,5.0,Charlie Kim,C013
+234,2024-10-30,South,Office Supplies,Magazine Rack,6,39.99,239.94,0.0,Diana Patel,C014
+235,2024-11-02,East,Software,Status Page Builder,4,129.99,519.96,0.0,Eve Johnson,C015
+236,2024-11-05,West,Electronics,USB Fan Desktop,25,12.99,324.75,10.0,Bob Martinez,C016
+237,2024-11-08,North,Office Supplies,Pencil Case Premium,18,18.99,341.82,0.0,Charlie Kim,C017
+238,2024-11-11,South,Electronics,Smart Pill Reminder,8,49.99,399.92,0.0,Diana Patel,C018
+239,2024-11-14,East,Electronics,Monitor Arm Dual,6,99.99,599.94,5.0,Alice Chen,C019
+240,2024-11-17,West,Software,Changelog Manager,5,59.99,299.95,0.0,Frank Wilson,C020
+241,2024-11-20,North,Electronics,Hand Warmer Rechargeable,22,19.99,439.78,0.0,Charlie Kim,C001
+242,2024-11-23,South,Office Supplies,Receipt Book,15,8.99,134.85,10.0,Diana Patel,C002
+243,2024-11-26,East,Office Supplies,Binder Dividers Set,30,5.99,179.70,0.0,Eve Johnson,C003
+244,2024-11-29,West,Electronics,Smart Tag Tracker,16,24.99,399.84,0.0,Bob Martinez,C004
+245,2024-12-01,North,Software,API Documentation,4,179.99,719.96,5.0,Charlie Kim,C005
+246,2024-12-04,South,Electronics,Fitness Ring Smart,10,79.99,799.90,0.0,Diana Patel,C006
+247,2024-12-07,East,Electronics,USB Webcam Ring Light,14,44.99,629.86,0.0,Alice Chen,C007
+248,2024-12-10,West,Office Supplies,Wall Organizer,8,34.99,279.92,10.0,Frank Wilson,C008
+249,2024-12-13,North,Electronics,Bluetooth Car Kit,12,39.99,479.88,0.0,Charlie Kim,C009
+250,2024-12-16,South,Office Supplies,Clipboard Folder,20,14.99,299.80,5.0,Diana Patel,C010
+251,2024-12-19,East,Software,Incident Manager,3,249.99,749.97,0.0,Eve Johnson,C011
+252,2024-12-22,West,Electronics,Heated Seat Cushion,6,54.99,329.94,0.0,Bob Martinez,C012
+253,2024-12-25,North,Office Supplies,Gift Wrap Station,10,29.99,299.90,10.0,Charlie Kim,C013
+254,2024-12-28,South,Electronics,Smart Alarm System,4,199.99,799.96,0.0,Diana Patel,C014
+255,2024-12-31,East,Electronics,New Year Countdown Timer,30,9.99,299.70,0.0,Alice Chen,C015
+256,2024-01-06,West,Electronics,Laptop Charger Universal,10,49.99,499.90,5.0,Bob Martinez,C016
+257,2024-01-11,North,Office Supplies,Hole Punch 3-ring,8,19.99,159.92,0.0,Charlie Kim,C017
+258,2024-01-16,South,Software,Data Visualization Tool,5,299.99,1499.95,0.0,Diana Patel,C018
+259,2024-01-19,East,Electronics,VGA to HDMI Adapter,20,14.99,299.80,10.0,Eve Johnson,C019
+260,2024-01-24,West,Office Supplies,Sticky Flags Neon,40,3.99,159.60,0.0,Frank Wilson,C020
+261,2024-02-01,North,Electronics,USB Desk Light,25,11.99,299.75,0.0,Charlie Kim,C001
+262,2024-02-07,South,Electronics,Fitness Band Slim,15,39.99,599.85,5.0,Diana Patel,C002
+263,2024-02-11,East,Software,CRM Extension Pack,4,179.99,719.96,0.0,Alice Chen,C003
+264,2024-02-16,West,Electronics,Electric Air Duster,10,59.99,599.90,0.0,Bob Martinez,C004
+265,2024-02-19,North,Office Supplies,Hanging Folders,30,6.99,209.70,10.0,Charlie Kim,C005
+266,2024-02-23,South,Office Supplies,Copy Paper Premium,20,24.99,499.80,0.0,Diana Patel,C006
+267,2024-02-27,East,Electronics,Game Controller BT,8,44.99,359.92,0.0,Eve Johnson,C007
+268,2024-03-03,West,Software,Markdown Editor Pro,12,29.99,359.88,5.0,Frank Wilson,C008
+269,2024-03-06,North,Electronics,Battery Pack AA,50,9.99,499.50,0.0,Charlie Kim,C009
+270,2024-03-09,South,Electronics,Aromatherapy Diffuser,6,49.99,299.94,0.0,Diana Patel,C010
+271,2024-03-13,East,Office Supplies,Mouse Pad XL,15,19.99,299.85,10.0,Alice Chen,C011
+272,2024-03-16,West,Electronics,Portable Fan Neck,20,29.99,599.80,0.0,Bob Martinez,C012
+273,2024-03-19,North,Software,Workflow Automator,3,399.99,1199.97,0.0,Charlie Kim,C013
+274,2024-03-23,South,Office Supplies,Calculator Scientific,12,14.99,179.88,5.0,Diana Patel,C014
+275,2024-03-27,East,Electronics,Wireless Display Adapter,8,69.99,559.92,0.0,Eve Johnson,C015
+276,2024-04-03,West,Electronics,Robot Mop,4,249.99,999.96,0.0,Bob Martinez,C016
+277,2024-04-06,North,Office Supplies,Whiteboard Eraser MagSet,18,8.99,161.82,10.0,Charlie Kim,C017
+278,2024-04-09,South,Software,Help Desk Lite,6,99.99,599.94,0.0,Diana Patel,C018
+279,2024-04-13,East,Electronics,FM Transmitter Car,14,19.99,279.86,0.0,Alice Chen,C019
+280,2024-04-16,West,Office Supplies,Notebook Spiral Pack,25,7.99,199.75,5.0,Frank Wilson,C020
+281,2024-04-19,North,Electronics,USB Hub Powered,10,39.99,399.90,0.0,Charlie Kim,C001
+282,2024-04-22,South,Electronics,Pet Cam Treat Dispenser,5,129.99,649.95,0.0,Diana Patel,C002
+283,2024-04-25,East,Software,QR Code Generator Pro,8,49.99,399.92,10.0,Eve Johnson,C003
+284,2024-04-28,West,Electronics,Bike Light Set,20,24.99,499.80,0.0,Bob Martinez,C004
+285,2024-05-01,North,Office Supplies,Dry Erase Board Mini,12,34.99,419.88,0.0,Charlie Kim,C005
+286,2024-05-04,South,Office Supplies,Tissue Box Cover,15,12.99,194.85,5.0,Diana Patel,C006
+287,2024-05-07,East,Electronics,Screen Protector Pack,35,9.99,349.65,0.0,Alice Chen,C007
+288,2024-05-10,West,Software,Bug Bounty Platform,3,599.99,1799.97,0.0,Frank Wilson,C008
+289,2024-05-14,North,Electronics,Smart Coaster,20,19.99,399.80,10.0,Charlie Kim,C009
+290,2024-05-17,South,Electronics,Digital Measuring Tape,10,29.99,299.90,0.0,Diana Patel,C010
+291,2024-05-20,East,Office Supplies,Letterhead Paper,25,15.99,399.75,0.0,Eve Johnson,C011
+292,2024-05-23,West,Electronics,Headphone Amp,6,89.99,539.94,5.0,Bob Martinez,C012
+293,2024-05-26,North,Office Supplies,Labels Avery Sheet,40,5.99,239.60,0.0,Charlie Kim,C013
+294,2024-05-29,South,Software,Waitlist Manager,4,79.99,319.96,0.0,Diana Patel,C014
+295,2024-06-01,East,Electronics,Phone Case Magsafe,18,29.99,539.82,10.0,Alice Chen,C015
+296,2024-06-05,West,Office Supplies,Name Badge Kit,10,18.99,189.90,0.0,Frank Wilson,C016
+297,2024-06-08,North,Electronics,Webcam Cover Slide,50,4.99,249.50,0.0,Charlie Kim,C017
+298,2024-06-11,South,Electronics,Smart Plug Timer,20,24.99,499.80,5.0,Diana Patel,C018
+299,2024-06-14,East,Office Supplies,Ruler Set Metal,15,7.99,119.85,0.0,Eve Johnson,C019
+300,2024-06-17,West,Software,Release Notes Builder,5,69.99,349.95,0.0,Bob Martinez,C020

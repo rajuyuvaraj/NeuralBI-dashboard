@@ -1,0 +1,21 @@
+customer_id,company_name,contact_name,email,tier,region,join_date,lifetime_value
+C001,TechVision Inc,Sarah Johnson,sarah@techvision.com,Enterprise,East,2022-03-15,125000
+C002,DataStream Corp,Michael Chen,michael@datastream.com,Enterprise,West,2021-07-20,145000
+C003,CloudFirst Solutions,Emily Williams,emily@cloudfirst.com,Mid-Market,East,2023-01-10,67000
+C004,InnovateTech,James Brown,james@innovatetech.com,Enterprise,North,2021-11-05,189000
+C005,GreenLeaf Digital,Maria Garcia,maria@greenleaf.com,Mid-Market,South,2022-06-18,78000
+C006,ByteForge Labs,David Wilson,david@byteforge.com,Startup,West,2023-08-22,23000
+C007,Quantum Analytics,Lisa Anderson,lisa@quantum.com,Enterprise,East,2020-04-30,210000
+C008,SwiftCode Inc,Robert Taylor,robert@swiftcode.com,Mid-Market,North,2022-09-12,89000
+C009,NeuralNet Co,Jennifer Martinez,jennifer@neuralnet.com,Mid-Market,South,2023-03-25,56000
+C010,PixelPerfect,Christopher Lee,christopher@pixelperfect.com,Startup,East,2023-11-01,18000
+C011,DataDriven LLC,Amanda Harris,amanda@datadriven.com,Enterprise,West,2021-02-14,167000
+C012,CloudNative Systems,Matthew Clark,matthew@cloudnative.com,Mid-Market,North,2022-05-30,72000
+C013,AgileMinds,Jessica Lewis,jessica@agileminds.com,Startup,South,2023-07-15,31000
+C014,CodeCraft Studios,Daniel Robinson,daniel@codecraft.com,Mid-Market,East,2022-08-08,64000
+C015,Synergy Digital,Nicole Walker,nicole@synergy.com,Enterprise,West,2020-12-20,198000
+C016,FutureStack,Ryan Hall,ryan@futurestack.com,Mid-Market,North,2023-02-18,45000
+C017,SmartOps Inc,Stephanie Allen,stephanie@smartops.com,Enterprise,South,2021-06-10,156000
+C018,DevFlow Solutions,Kevin Young,kevin@devflow.com,Startup,East,2023-09-05,27000
+C019,Hyperion Tech,Rachel King,rachel@hyperion.com,Mid-Market,West,2022-04-22,83000
+C020,Velocity Labs,Brian Wright,brian@velocity.com,Enterprise,North,2021-01-08,175000
