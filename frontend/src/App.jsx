@@ -15,8 +15,8 @@ import DashboardView from './components/DashboardView'
 import LandingPage from './pages/LandingPage'
 import { Moon, Sun, RotateCcw, Clock, Zap, FileText, Database, Settings2, X } from 'lucide-react'
 
-const API_BASE_URL = 'http://localhost:8000'
-const API_URL = '/api'
+const API_BASE_URL = import.meta.env.VITE_API_URL || 'http://localhost:8000'
+const API_URL = `${API_BASE_URL}/api`
 
 const EMPTY_STATE_SUGGESTIONS = [
     { text: 'Show total revenue by region', icon: '📊' },
