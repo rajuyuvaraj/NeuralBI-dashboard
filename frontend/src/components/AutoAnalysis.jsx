@@ -68,9 +68,33 @@ export function AutoAnalysisLoader({ rowCount = 0, tableCount = 0 }) {
     )
 }
 
-function AutoAnalysisCard({ analysis, index }) {
+function AutoAnalysisCard({ analysis, index, onChatWithChart }) {
     const [reasoningOpen, setReasoningOpen] = useState(false)
     const { question, category, icon, priority, data, chart_config, insights, confidence } = analysis
+
+    // Helper for quick chips based on chart type
+    const getQuickChips = () => {
+        const type = chart_config?.chart_type?.toLowerCase() || ''
+        const baseChips = []
+        if (type === 'bar' || type === 'grouped_bar') {
+            baseChips.push("Show top 5 only", "Sort descending", "Show as pie chart")
+        } else if (type === 'line' || type === 'area') {
+            baseChips.push("Show only this year", "Show monthly average", "Zoom into last 6 months")
+        } else if (type === 'pie') {
+            baseChips.push("Show as bar chart", "Show exact values", "Show top 3 only")
+        } else {
+            baseChips.push("Show top 5 only", "Show as bar chart")
+        }
+
+        // Check for columns that look like regions/locations to add geographic chips
+        const cols = analysis.data && analysis.data.length > 0 ? Object.keys(analysis.data[0]) : []
+        const hasRegion = cols.some(c => c.toLowerCase().includes('region') || c.toLowerCase().includes('country') || c.toLowerCase().includes('city') || c.toLowerCase().includes('state'))
+        if (hasRegion) {
+            baseChips.push("Filter to East only", "Compare North vs South")
+        }
+
+        return baseChips.slice(0, 3) // ensure 3 max
+    }
 
     const priorityColors = {
         1: 'var(--accent-primary)',
@@ -142,6 +166,46 @@ function AutoAnalysisCard({ analysis, index }) {
                         I chose this question because {category}-type analysis reveals critical business performance metrics that executives need to monitor daily. The SQL generated and chart selected reflect the most effective visualization for this data shape.
                     </div>
                 )}
+
+                {/* Actions row: View SQL and Chat */}
+                <div style={{ display: 'flex', padding: '12px 16px', borderTop: '1px solid var(--glass-border)', gap: '12px', alignItems: 'center' }}>
+                    <button
+                        onClick={() => onChatWithChart({ ...analysis })}
+                        style={{
+                            background: 'transparent', border: '1px solid rgba(6,182,212,0.3)', borderRadius: '6px',
+                            color: 'var(--accent-cyan)', padding: '4px 10px', fontSize: '11px', fontWeight: 500,
+                            cursor: 'pointer', display: 'flex', alignItems: 'center', gap: '6px',
+                            transition: 'all 0.2s'
+                        }}
+                        onMouseEnter={e => { e.currentTarget.style.background = 'rgba(6,182,212,0.1)' }}
+                        onMouseLeave={e => { e.currentTarget.style.background = 'transparent' }}
+                    >
+                        💬 Chat about this
+                    </button>
+                    <button className="icon-btn" style={{ fontSize: '11px', padding: '4px 8px', borderRadius: '6px', display: 'flex', alignItems: 'center', gap: '4px', background: 'rgba(255,255,255,0.05)', color: 'var(--text-secondary)', border: 'none', cursor: 'pointer' }}>
+                        {'< >'} View SQL
+                    </button>
+                </div>
+
+                {/* Quick Action Chips */}
+                <div style={{ padding: '0 16px 12px 16px', display: 'flex', flexWrap: 'wrap', gap: '6px' }}>
+                    {getQuickChips().map((chip, i) => (
+                        <button key={i}
+                            onClick={() => {
+                                onChatWithChart({ ...analysis, quickAction: chip })
+                            }}
+                            style={{
+                                background: 'rgba(255,255,255,0.04)', border: '1px solid var(--glass-border)',
+                                borderRadius: '20px', padding: '3px 10px', fontSize: '10px', color: 'var(--text-secondary)',
+                                cursor: 'pointer', transition: 'all 0.2s'
+                            }}
+                            onMouseEnter={e => { e.currentTarget.style.background = 'rgba(99,102,241,0.1)'; e.currentTarget.style.borderColor = 'var(--accent-primary)'; e.currentTarget.style.color = 'var(--text-primary)' }}
+                            onMouseLeave={e => { e.currentTarget.style.background = 'rgba(255,255,255,0.04)'; e.currentTarget.style.borderColor = 'var(--glass-border)'; e.currentTarget.style.color = 'var(--text-secondary)' }}
+                        >
+                            {chip}
+                        </button>
+                    ))}
+                </div>
             </div>
         </motion.div>
     )
@@ -152,16 +216,7 @@ export default function AutoAnalysis({ analyses, onRefresh, onHide }) {
 
     // Helper to format time ago
     const getTimeAgo = () => {
-        try {
-            const cached = localStorage.getItem('neuralbi_last_analysis')
-            if (cached) {
-                const parsed = JSON.parse(cached)
-                const mins = Math.floor((Date.now() - parsed.timestamp) / 60000)
-                if (mins === 0) return 'Just now'
-                return `${mins} min${mins !== 1 ? 's' : ''} ago`
-            }
-        } catch (e) { }
-        return 'Recently'
+        return 'Just now'
     }
 
     return (
@@ -192,7 +247,7 @@ export default function AutoAnalysis({ analyses, onRefresh, onHide }) {
             {/* Grid */}
             <div className="dashboard-grid">
                 {analyses.map((analysis, idx) => (
-                    <AutoAnalysisCard key={idx} index={idx} analysis={analysis} />
+                    <AutoAnalysisCard key={idx} index={idx} analysis={analysis} onChatWithChart={analysis.onChatWithChart || onHide} />
                 ))}
             </div>
         </div>

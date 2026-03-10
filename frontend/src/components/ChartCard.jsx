@@ -100,7 +100,18 @@ export default function ChartCard({ dashboard, onRemove, onSuggestionClick }) {
                 <div className="chart-card-header">
                     <div style={{ flex: 1 }}>
                         <div style={{ display: 'flex', alignItems: 'center', gap: '10px', marginBottom: '4px' }}>
-                            <h3 className="chart-card-title">{chart_config?.title || question}</h3>
+                            <div>
+                                <h3 className="chart-card-title" style={{ margin: 0 }}>{chart_config?.title || question}</h3>
+                                {dashboard.is_followup && (
+                                    <div style={{
+                                        fontSize: '10px', color: 'var(--accent-cyan)', background: 'rgba(6,182,212,0.1)',
+                                        border: '1px solid rgba(6,182,212,0.2)', borderRadius: '4px', padding: '2px 8px',
+                                        display: 'inline-block', marginTop: '4px'
+                                    }}>
+                                        ↩ Follow-up of: {dashboard.followup_of}
+                                    </div>
+                                )}
+                            </div>
                             <span className={badgeClass}>{chart_config?.chart_type}</span>
                         </div>
                         <div style={{ display: 'flex', alignItems: 'center', gap: '8px', fontSize: '12px', color: 'var(--text-muted)' }}>

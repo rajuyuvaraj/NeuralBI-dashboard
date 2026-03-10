@@ -1,5 +1,7 @@
 import { useState, useRef, useEffect } from 'react'
-import { Send, Mic, MicOff } from 'lucide-react'
+import { Send, Mic, MicOff, Plus, X } from 'lucide-react'
+import { motion, AnimatePresence } from 'framer-motion'
+import UploadPanel from './UploadPanel'
 
 const SUGGESTIONS = [
     'Monthly sales by region',
@@ -17,12 +19,15 @@ const LOADING_MESSAGES = [
     'Generating insights...',
 ]
 
-export default function QueryTerminal({ onSubmit, loading, error, activeTable }) {
+export default function QueryTerminal({ onSubmit, loading, error, activeTables = [], onUploadSuccess, followUpContext, onClearFollowUp }) {
     const [input, setInput] = useState('')
     const [isRecording, setIsRecording] = useState(false)
     const [loadingMessageIdx, setLoadingMessageIdx] = useState(0)
+    const [showUploadModal, setShowUploadModal] = useState(false)
     const inputRef = useRef(null)
     const recognitionRef = useRef(null)
+
+    const ACCENT_COLORS = ['#6366f1', '#06b6d4', '#10b981', '#f59e0b', '#ec4899']
 
     // Listen for external appends (e.g., from DatasetOverview column chips)
     useEffect(() => {
@@ -56,14 +61,21 @@ export default function QueryTerminal({ onSubmit, loading, error, activeTable })
     const handleSubmit = (e) => {
         e?.preventDefault()
         const q = input.trim()
-        if (!q || loading || !activeTable) return
+        if (!q || loading || !activeTables.length) return
 
-        onSubmit(q, false, isFollowUp(q))
+        if (followUpContext) {
+            // MODE B
+            onSubmit(q, false, true) // isFollowUpOverride = true
+        } else {
+            // MODE A
+            onSubmit(q, false, isFollowUp(q))
+        }
+
         setInput('')
     }
 
     const handleChipClick = (suggestion) => {
-        if (!activeTable) return
+        if (!activeTables.length) return
         setInput(suggestion)
         onSubmit(suggestion, false, false) // chips are usually new queries
     }
@@ -113,33 +125,89 @@ export default function QueryTerminal({ onSubmit, loading, error, activeTable })
                             key={i}
                             className="chip"
                             onClick={() => handleChipClick(s)}
-                            disabled={loading || !activeTable}
+                            disabled={loading || !activeTables.length}
                         >
                             {s}
                         </button>
                     ))}
                 </div>
 
-                <form onSubmit={handleSubmit}>
-                    <div className="terminal-input-row" style={{ borderColor: !activeTable ? 'rgba(245, 158, 11, 0.4)' : '' }}>
+                {/* Follow-up Context Pill */}
+                {followUpContext && (
+                    <div style={{
+                        background: 'rgba(99,102,241,0.1)',
+                        border: '1px solid rgba(99,102,241,0.3)',
+                        borderRadius: '8px',
+                        padding: '6px 12px',
+                        marginBottom: '8px',
+                        display: 'flex',
+                        alignItems: 'center',
+                        justifyContent: 'space-between',
+                        fontSize: '11px',
+                        color: 'var(--text-primary)'
+                    }}>
+                        <span>
+                            <span style={{ color: 'var(--accent-primary)', marginRight: '4px' }}>↩</span>
+                            Following up on: <strong> "{followUpContext.chart_title}"</strong>
+                        </span>
+                        <button onClick={onClearFollowUp} style={{ background: 'transparent', border: 'none', color: 'var(--text-muted)', cursor: 'pointer', display: 'flex' }} title="Clear Follow-up">
+                            <X size={14} />
+                        </button>
+                    </div>
+                )}
 
-                        {activeTable && (
+                <form onSubmit={handleSubmit}>
+                    <div className="terminal-input-row" style={{ borderColor: !activeTables.length ? 'rgba(245, 158, 11, 0.4)' : '' }}>
+
+                        {activeTables.length === 0 ? (
                             <div style={{
-                                background: 'rgba(99,102,241,0.15)',
-                                border: '1px solid rgba(99,102,241,0.3)',
-                                fontSize: '11px',
-                                fontFamily: 'JetBrains Mono, monospace',
-                                padding: '3px 8px',
+                                background: 'rgba(245,158,11,0.15)',
+                                border: '1px solid rgba(245,158,11,0.4)',
+                                fontSize: '11px', fontFamily: 'JetBrains Mono, monospace',
+                                padding: '3px 8px', borderRadius: '6px',
+                                color: '#f59e0b', display: 'flex', alignItems: 'center', gap: '4px', marginRight: '8px'
+                            }}>
+                                ⚠️ No dataset
+                            </div>
+                        ) : activeTables.slice(0, 3).map((tName, idx) => (
+                            <div key={tName} style={{
+                                background: `${ACCENT_COLORS[idx % ACCENT_COLORS.length]}26`,
+                                border: `1px solid ${ACCENT_COLORS[idx % ACCENT_COLORS.length]}4D`,
+                                fontSize: '11px', fontFamily: 'JetBrains Mono, monospace',
+                                padding: '3px 8px', borderRadius: '6px',
+                                color: ACCENT_COLORS[idx % ACCENT_COLORS.length],
+                                display: 'flex', alignItems: 'center', gap: '4px', marginRight: '4px',
+                                whiteSpace: 'nowrap'
+                            }}>
+                                📊 {tName}{activeTables.length > 3 && idx === 2 ? ` +${activeTables.length - 3}` : ''}
+                            </div>
+                        ))}
+
+                        <button
+                            type="button"
+                            onClick={() => setShowUploadModal(true)}
+                            title="Add dataset"
+                            style={{
+                                background: 'linear-gradient(135deg, var(--accent-primary), var(--accent-cyan))',
+                                border: 'none',
                                 borderRadius: '6px',
-                                color: 'var(--accent-primary)',
+                                padding: '3px 8px',
+                                color: 'white',
+                                fontSize: '11px',
+                                fontWeight: 600,
+                                fontFamily: 'JetBrains Mono, monospace',
+                                cursor: 'pointer',
                                 display: 'flex',
                                 alignItems: 'center',
                                 gap: '4px',
-                                marginRight: '8px'
-                            }}>
-                                📊 {activeTable}
-                            </div>
-                        )}
+                                marginRight: '8px',
+                                transition: 'opacity 0.2s',
+                            }}
+                            onMouseEnter={e => e.currentTarget.style.opacity = '0.8'}
+                            onMouseLeave={e => e.currentTarget.style.opacity = '1'}
+                        >
+                            <Plus size={12} /> Add
+                        </button>
 
                         <div className={`terminal-dot ${loading ? 'loading' : ''}`} />
 
@@ -152,10 +220,15 @@ export default function QueryTerminal({ onSubmit, loading, error, activeTable })
                                 ref={inputRef}
                                 type="text"
                                 className="terminal-input"
-                                placeholder={!activeTable ? "← Select a dataset first" : `Ask anything about ${activeTable}...`}
+                                placeholder={
+                                    !activeTables.length ? "← Select a dataset first" :
+                                        followUpContext ? `Ask a follow-up about '${followUpContext.chart_title}'...` :
+                                            activeTables.length === 1 ? `Ask anything about ${activeTables[0]}...` :
+                                                `Ask anything about ${activeTables.join(', ')}...`
+                                }
                                 value={input}
                                 onChange={(e) => setInput(e.target.value)}
-                                disabled={loading || !activeTable}
+                                disabled={loading || !activeTables.length}
                                 autoFocus
                             />
                         )}
@@ -165,7 +238,7 @@ export default function QueryTerminal({ onSubmit, loading, error, activeTable })
                             className={`btn-voice ${isRecording ? 'recording' : ''}`}
                             onClick={toggleVoice}
                             title={isRecording ? 'Stop recording' : 'Voice input'}
-                            disabled={!activeTable}
+                            disabled={!activeTables.length}
                         >
                             {isRecording ? <MicOff size={16} /> : <Mic size={16} />}
                         </button>
@@ -173,7 +246,7 @@ export default function QueryTerminal({ onSubmit, loading, error, activeTable })
                         <button
                             type="submit"
                             className="btn-send"
-                            disabled={loading || !input.trim() || !activeTable}
+                            disabled={loading || !input.trim() || !activeTables.length}
                             title="Send query"
                         >
                             {loading ? (
@@ -196,6 +269,51 @@ export default function QueryTerminal({ onSubmit, loading, error, activeTable })
                     </div>
                 )}
             </div>
+
+            {/* Upload Modal */}
+            <AnimatePresence>
+                {showUploadModal && (
+                    <motion.div
+                        className="upload-modal-overlay"
+                        initial={{ opacity: 0 }}
+                        animate={{ opacity: 1 }}
+                        exit={{ opacity: 0 }}
+                        transition={{ duration: 0.2 }}
+                        onClick={() => setShowUploadModal(false)}
+                    >
+                        <motion.div
+                            className="upload-modal"
+                            initial={{ opacity: 0, scale: 0.95, y: 20 }}
+                            animate={{ opacity: 1, scale: 1, y: 0 }}
+                            exit={{ opacity: 0, scale: 0.95, y: 20 }}
+                            transition={{ duration: 0.25, ease: 'easeOut' }}
+                            onClick={e => e.stopPropagation()}
+                        >
+                            <div className="upload-modal-header">
+                                <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+                                    <span style={{ fontSize: '18px' }}>📊</span>
+                                    <span style={{ fontFamily: '"Space Grotesk", sans-serif', fontWeight: 700, fontSize: '16px', color: 'var(--text-primary)' }}>Add Dataset</span>
+                                </div>
+                                <button
+                                    onClick={() => setShowUploadModal(false)}
+                                    className="btn-ghost"
+                                    style={{ padding: '4px', borderRadius: '6px' }}
+                                >
+                                    <X size={18} />
+                                </button>
+                            </div>
+                            <div className="upload-modal-body">
+                                <UploadPanel
+                                    onUploadSuccess={(data) => {
+                                        onUploadSuccess?.(data)
+                                        setShowUploadModal(false)
+                                    }}
+                                />
+                            </div>
+                        </motion.div>
+                    </motion.div>
+                )}
+            </AnimatePresence>
         </div>
     )
 }

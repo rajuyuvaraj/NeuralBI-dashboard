@@ -114,6 +114,174 @@ async def get_schema(db: sqlite3.Connection = Depends(get_db)):
         
     return {"tables": schema}
 
+class DashboardRequest(BaseModel):
+    tables: list[str]
+    dashboard_type: str = "auto"
+
+@app.post("/api/dashboard")
+async def generate_dashboard(request: DashboardRequest, db: sqlite3.Connection = Depends(get_db)):
+    from prompt_templates import DASHBOARD_PLAN_SYSTEM, DASHBOARD_PLAN_USER
+    cursor = db.cursor()
+    
+    tables = request.tables
+    if not tables:
+        cursor.execute("SELECT name FROM sqlite_master WHERE type='table'")
+        tables = [row[0] for row in cursor.fetchall()]
+        
+    schema_parts = []
+    for table in tables:
+        try:
+            cursor.execute(f"PRAGMA table_info({table})")
+            columns_info = cursor.fetchall()
+            col_details = []
+            for c in columns_info:
+                col_name = c[1]
+                col_type = c[2].upper()
+                
+                stats = ""
+                if any(t in col_type for t in ['INT','REAL','FLOAT','NUMERIC','NUMBER']):
+                    cursor.execute(f'SELECT MIN("{col_name}"), MAX("{col_name}"), ROUND(AVG("{col_name}"),2), SUM("{col_name}") FROM "{table}"')
+                    r = cursor.fetchone()
+                    if r and r[0] is not None:
+                        stats = f" [MIN:{r[0]} MAX:{r[1]} AVG:{r[2]} SUM:{r[3]}]"
+                col_details.append(f"{col_name} ({col_type}){stats}")
+                
+            cursor.execute(f"SELECT * FROM {table} LIMIT 5")
+            sample_rows = [dict(row) for row in cursor.fetchall()]
+            
+            schema_parts.append(f"Table: {table}\\nColumns:\\n" + "\\n".join(f"  - {cd}" for cd in col_details) + f"\\nSample Data: {sample_rows}\\n")
+        except Exception:
+            continue
+            
+    schema_str = "\\n".join(schema_parts)
+    
+    llm = LLMEngine()
+    user_prompt = DASHBOARD_PLAN_USER.format(schema=schema_str)
+    
+    raw_plan = await llm.call(DASHBOARD_PLAN_SYSTEM, user_prompt, temperature=0.2, max_tokens=3000)
+    plan = llm.safe_json_parse(raw_plan)
+    
+    if "error" in plan or not isinstance(plan, dict):
+        return {"success": False, "message": "Failed to generate dashboard plan."}
+        
+    # Parallel execution
+    async def run_query(sql, conn):
+        try:
+            df = pd.read_sql_query(sql, conn)
+            df = df.where(pd.notnull(df), None)
+            return df.to_dict('records')
+        except Exception as e:
+            return {"error": str(e)}
+
+    tasks = []
+    
+    for kpi in plan.get("kpis", []):
+        tasks.append(run_query(kpi.get("sql", ""), db))
+        if kpi.get("trend_sql"):
+            tasks.append(run_query(kpi.get("trend_sql", ""), db))
+            
+    for chart in plan.get("charts", []):
+        tasks.append(run_query(chart.get("sql", ""), db))
+        
+    tasks.append(run_query(plan.get("data_table", {}).get("sql", ""), db))
+    
+    results = await asyncio.gather(*tasks)
+    
+    res_idx = 0
+    kpis_out = []
+    
+    def format_value(value, format_type):
+        if value is None: return "0"
+        try:
+            value = float(value)
+        except:
+            return str(value)
+        if format_type == "currency":
+            if value >= 1_000_000: return f"${value/1_000_000:.2f}M"
+            elif value >= 1_000: return f"${value/1_000:.1f}K"
+            return f"${value:,.0f}"
+        elif format_type == "number":
+            if value >= 1_000_000: return f"{value/1_000_000:.1f}M"
+            elif value >= 1_000: return f"{value/1_000:.0f}K"
+            return f"{value:,.0f}"
+        elif format_type == "percent":
+            return f"{value:.1f}%"
+        return str(value)
+
+    for kpi in plan.get("kpis", []):
+        val_res = results[res_idx]
+        res_idx += 1
+        
+        main_val = 0
+        if isinstance(val_res, list) and len(val_res) > 0:
+            first_row = val_res[0]
+            if first_row and len(first_row.values()) > 0:
+                main_val = list(first_row.values())[0]
+                
+        trend_direction = "flat"
+        trend_percent = 0
+        
+        if kpi.get("trend_sql"):
+            trend_res = results[res_idx]
+            res_idx += 1
+            if isinstance(trend_res, list) and len(trend_res) >= 2:
+                try:
+                    current = list(trend_res[0].values())[1]
+                    previous = list(trend_res[1].values())[1]
+                    if previous and previous != 0:
+                        change = ((current - previous) / previous) * 100
+                        trend_percent = round(abs(change), 1)
+                        if change > 0: trend_direction = "up"
+                        elif change < 0: trend_direction = "down"
+                except Exception:
+                    pass
+        
+        kpis_out.append({
+            "id": kpi.get("id", f"kpi_{res_idx}"),
+            "title": kpi.get("title", "KPI"),
+            "value": main_val,
+            "formatted_value": format_value(main_val, kpi.get("format", "number")),
+            "format": kpi.get("format", "number"),
+            "icon": kpi.get("icon", "📊"),
+            "color": kpi.get("color", "indigo"),
+            "trend_direction": trend_direction,
+            "trend_percent": trend_percent,
+            "trend_label": kpi.get("trend_label", "vs previous")
+        })
+        
+    charts_out = []
+    for chart in plan.get("charts", []):
+        chart_res = results[res_idx]
+        res_idx += 1
+        data = chart_res if isinstance(chart_res, list) else []
+        charts_out.append({
+            "id": chart.get("id", f"chart_{res_idx}"),
+            "title": chart.get("title", "Chart"),
+            "data": data,
+            "chart_type": chart.get("chart_type", "bar"),
+            "x_axis": chart.get("x_axis"),
+            "y_axis": chart.get("y_axis"),
+            "color_field": chart.get("color_field"),
+            "size": chart.get("size", "medium"),
+            "insight": chart.get("insight", "")
+        })
+        
+    table_res = results[res_idx]
+    
+    return {
+        "success": True,
+        "dashboard_title": plan.get("dashboard_title", "Auto Dashboard"),
+        "subtitle": plan.get("subtitle", "Generated automatically"),
+        "generated_at": datetime.now().isoformat(),
+        "kpis": kpis_out,
+        "charts": charts_out,
+        "data_table": {
+            "title": plan.get("data_table", {}).get("title", "Data"),
+            "columns": plan.get("data_table", {}).get("columns_to_show", []),
+            "rows": table_res if isinstance(table_res, list) else []
+        }
+    }
+
 class AutoAnalyzeResponse(BaseModel):
     success: bool
     analyses: list = []
@@ -143,13 +311,23 @@ async def auto_analyze(request: AutoAnalyzeRequest, db: sqlite3.Connection = Dep
             continue
         
     schema_str = "\n".join(schema_parts)
+
+    # Find JOIN keys if multiple tables
+    join_info = ""
+    if len(tables) > 1:
+        join_hints = query_engine._find_join_keys(tables, cursor)
+        if join_hints:
+            join_info = "\n\nKnown JOIN relationships:\n" + "\n".join(f"  - {h}" for h in join_hints)
+            join_info += "\nGenerate some questions that require JOINing across these tables."
     
     system_prompt = """You are a senior data analyst preparing a morning
     briefing for a CEO. You have access to a database.
     Return ONLY a valid JSON array. No markdown."""
 
     user_prompt = f"""Given this database schema:
-    {schema_str}
+    {schema_str}{join_info}
+
+    Available tables: {', '.join(tables)}
 
     Generate exactly 5 business intelligence questions
     that a CEO would MOST want to know automatically.
@@ -348,140 +526,195 @@ async def suggest_dataset(request: SuggestRequest, db: sqlite3.Connection = Depe
 @app.post("/api/upload-csv")
 async def upload_csv(file: UploadFile = File(...), db: sqlite3.Connection = Depends(get_db)):
     valid_extensions = (".csv", ".xlsx", ".xls")
-    if not file.filename.endswith(valid_extensions):
-        return {"success": False, "message": "Only CSV and Excel files are supported"}
-        
+    ext = os.path.splitext(file.filename)[1].lower()
+    if ext not in valid_extensions:
+        raise HTTPException(400, f"Only CSV and Excel files supported. Got: {ext}")
+
+    content = await file.read()
+    if len(content) > 10 * 1024 * 1024:
+        raise HTTPException(400, "File too large (max 10MB)")
+
     try:
-        content = await file.read()
         df = None
-        
-        if file.filename.endswith(".csv"):
-            # Multi-encoding support
-            for encoding in ['utf-8', 'utf-8-sig', 'latin-1', 'cp1252']:
+
+        if ext == ".csv":
+            decoded = None
+            for enc in ['utf-8', 'utf-8-sig', 'latin-1', 'cp1252']:
                 try:
-                    df = pd.read_csv(io.BytesIO(content), encoding=encoding)
+                    decoded = content.decode(enc)
                     break
                 except UnicodeDecodeError:
                     continue
-            if df is None:
-                return {"success": False, "message": "Failed to decode CSV file"}
-        else:
-            # Excel support
+            if decoded is None:
+                raise HTTPException(400, "Could not read this file. Try saving as UTF-8 CSV.")
             try:
+                df = pd.read_csv(io.StringIO(decoded))
+            except Exception as e:
+                raise HTTPException(400, f"Could not parse CSV: {str(e)}")
+        else:
+            try:
+                import openpyxl
                 df = pd.read_excel(io.BytesIO(content))
             except Exception as e:
-                return {"success": False, "message": "Failed to decode Excel file"}
-            
+                raise HTTPException(400, f"Could not read Excel file: {str(e)}")
+
+        if df is None or df.empty or len(df.columns) == 0:
+            raise HTTPException(400, "No data found in this file.")
+        if len(df) == 0:
+            raise HTTPException(400, "File has column headers but no data rows.")
+
         # Clean dataframe
         df.dropna(how='all', inplace=True)
+        df.dropna(axis=1, how='all', inplace=True)
         for col in df.select_dtypes(['object']).columns:
             df[col] = df[col].astype(str).str.strip()
-            
+
         df.columns = [
             re.sub(r'[^a-z0-9_]', '_', str(col).strip().lower().replace(' ', '_'))
             for col in df.columns
         ]
-        
+
         # Determine table name
         table_name = file.filename.lower()
-        for ext in valid_extensions:
-            table_name = table_name.replace(ext, "")
+        for e in valid_extensions:
+            table_name = table_name.replace(e, "")
         table_name = table_name.replace(' ', '_')
         table_name = "".join(c for c in table_name if c.isalnum() or c == '_')
-        
+
+        # Detect column types
+        col_types = []
+        for col in df.columns:
+            if pd.api.types.is_numeric_dtype(df[col]):
+                col_types.append({"name": col, "type": "NUMERIC"})
+            elif pd.api.types.is_datetime64_any_dtype(df[col]):
+                col_types.append({"name": col, "type": "DATE"})
+            else:
+                col_types.append({"name": col, "type": "TEXT"})
+
         # Provide sample questions based on columns
         cols_list = list(df.columns)
         prompt = f"Given these column names: {cols_list},\n" \
                  "suggest 3 simple business questions a user might ask. Return JSON array of 3 question strings."
-        
-        # Using LLM asynchronously
+
         llm = LLMEngine()
         raw = await llm.call(
-            "Return ONLY a valid JSON array of 3 strings. No markdown.", 
+            "Return ONLY a valid JSON array of 3 strings. No markdown.",
             prompt
         )
         sample_questions = llm.safe_json_array(raw)
-        
+
         # Save to SQLite
         df.to_sql(table_name, db, if_exists="replace", index=False)
-        
+
         return {
-            "success": True, 
+            "success": True,
+            "table_name": table_name,
             "table": table_name,
+            "row_count": len(df),
+            "col_count": len(df.columns),
             "rows": len(df),
-            "columns": len(df.columns),
+            "columns": col_types,
             "suggested_questions": sample_questions,
+            "source": "csv" if ext == ".csv" else "excel",
             "message": f"Successfully loaded {len(df)} rows into '{table_name}'"
         }
-        
+
+    except HTTPException:
+        raise
     except Exception as e:
-        return {"success": False, "message": f"Error processing file: {str(e)}"}
+        raise HTTPException(500, f"Error processing file: {str(e)}")
 
 class SheetsImportRequest(BaseModel):
     url: str
 
 @app.post("/api/import-sheets")
 async def import_sheets(request: SheetsImportRequest, db: sqlite3.Connection = Depends(get_db)):
-    # Extract sheet ID from URL using regex
-    match = re.search(r'/spreadsheets/d/([a-zA-Z0-9-_]+)', request.url)
+    pattern = r'docs\.google\.com/spreadsheets/d/([a-zA-Z0-9-_]+)'
+    match = re.search(pattern, request.url)
     if not match:
-        return {"success": False, "message": "Invalid Google Sheets URL"}
-        
+        raise HTTPException(400, "Not a valid Google Sheets URL. URL must contain docs.google.com/spreadsheets")
+
     sheet_id = match.group(1)
-    
-    # Build export URL
+
     csv_url = f"https://docs.google.com/spreadsheets/d/{sheet_id}/export?format=csv"
-    
+    gid_match = re.search(r'gid=(\d+)', request.url)
+    if gid_match:
+        csv_url += f"&gid={gid_match.group(1)}"
+
     try:
-        # Fetch with requests
-        response = requests.get(csv_url, timeout=15)
-        if response.status_code != 200:
-            return {
-                "success": False,
-                "message": "Could not fetch sheet. Make sure it is set to 'Anyone with link can view'"
-            }
-            
-        df = pd.read_csv(io.StringIO(response.text))
-        
-        # Clean dataframe
-        df.dropna(how='all', inplace=True)
-        for col in df.select_dtypes(['object']).columns:
-            df[col] = df[col].astype(str).str.strip()
-            
-        df.columns = [
-            re.sub(r'[^a-z0-9_]', '_', str(col).strip().lower().replace(' ', '_'))
-            for col in df.columns
-        ]
-        
-        table_name = f"sheet_{sheet_id[:8].lower()}"
-        
-        # Provide sample questions based on columns
-        cols_list = list(df.columns)
-        prompt = f"Given these column names: {cols_list},\n" \
-                 "suggest 3 simple business questions a user might ask. Return JSON array of 3 question strings."
-        
-        # Using LLM asynchronously
-        llm = LLMEngine()
-        raw = await llm.call(
-            "Return ONLY a valid JSON array of 3 strings. No markdown.", 
-            prompt
-        )
-        sample_questions = llm.safe_json_array(raw)
-        
-        # Save to SQLite
-        df.to_sql(table_name, db, if_exists="replace", index=False)
-        
-        return {
-            "success": True, 
-            "table": table_name,
-            "rows": len(df),
-            "columns": len(df.columns),
-            "suggested_questions": sample_questions,
-            "message": f"Successfully imported {len(df)} rows from Google Sheets"
-        }
-        
+        response = requests.get(csv_url, timeout=15, allow_redirects=True)
+    except Exception:
+        raise HTTPException(503, "Could not reach Google Sheets. Check your internet connection.")
+
+    if response.status_code == 403:
+        raise HTTPException(403, "Sheet is not publicly accessible. Go to Share → Anyone with link → Viewer.")
+    if response.status_code != 200:
+        raise HTTPException(400, f"Google returned error {response.status_code}. Make sure the sheet is publicly shared.")
+
+    content_type = response.headers.get('content-type', '')
+    if 'text/html' in content_type:
+        raise HTTPException(403, "Google redirected to login page. Sheet must be set to 'Anyone with link can view'.")
+
+    try:
+        df = pd.read_csv(io.StringIO(response.text), encoding='utf-8')
     except Exception as e:
-        return {"success": False, "message": f"Error importing Google Sheets: {str(e)}"}
+        raise HTTPException(400, f"Could not parse sheet data: {str(e)}")
+
+    if df.empty:
+        raise HTTPException(400, "The sheet appears to be empty.")
+
+    # Clean dataframe
+    df.dropna(how='all', inplace=True)
+    df.dropna(axis=1, how='all', inplace=True)
+    for col in df.select_dtypes(['object']).columns:
+        df[col] = df[col].astype(str).str.strip()
+
+    df.columns = [
+        re.sub(r'[^a-z0-9_]', '_', str(col).strip().lower().replace(' ', '_'))
+        for col in df.columns
+    ]
+
+    table_name = f"sheet_{sheet_id[:8].lower()}"
+    table_name = re.sub(r'[^a-z0-9_]', '_', table_name)
+
+    # Detect column types
+    col_types = []
+    for col in df.columns:
+        if pd.api.types.is_numeric_dtype(df[col]):
+            col_types.append({"name": col, "type": "NUMERIC"})
+        elif pd.api.types.is_datetime64_any_dtype(df[col]):
+            col_types.append({"name": col, "type": "DATE"})
+        else:
+            col_types.append({"name": col, "type": "TEXT"})
+
+    # Provide sample questions based on columns
+    cols_list = list(df.columns)
+    prompt = f"Given these column names: {cols_list},\n" \
+             "suggest 3 simple business questions a user might ask. Return JSON array of 3 question strings."
+
+    llm = LLMEngine()
+    raw = await llm.call(
+        "Return ONLY a valid JSON array of 3 strings. No markdown.",
+        prompt
+    )
+    sample_questions = llm.safe_json_array(raw)
+
+    # Save to SQLite
+    df.to_sql(table_name, db, if_exists="replace", index=False)
+
+    return {
+        "success": True,
+        "table_name": table_name,
+        "table": table_name,
+        "row_count": len(df),
+        "col_count": len(df.columns),
+        "rows": len(df),
+        "columns": col_types,
+        "suggested_questions": sample_questions,
+        "source": "google_sheets",
+        "original_url": request.url,
+        "message": f"{len(df)} rows imported from Google Sheets"
+    }
 
 @app.get("/api/tables")
 async def list_tables(db: sqlite3.Connection = Depends(get_db)):

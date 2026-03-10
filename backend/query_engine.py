@@ -94,6 +94,44 @@ class QueryEngine:
         for sid in expired:
             del sessions[sid]
 
+    def _find_join_keys(self, tables: list[str], cursor) -> list[str]:
+        """Auto-detect possible JOIN keys between active tables by finding common column names."""
+        table_cols = {}
+        for t in tables:
+            cursor.execute(f"PRAGMA table_info('{t}')")
+            table_cols[t] = [r[1] for r in cursor.fetchall()]
+
+        # Known relationships (hardcoded for built-in tables)
+        known = [
+            "sales.customer_id = customers.customer_id",
+            "sales.region = monthly_targets.region AND strftime('%Y', sales.date) = CAST(monthly_targets.year AS TEXT) AND strftime('%m', sales.date) = printf('%02d', monthly_targets.month)",
+        ]
+
+        join_hints = []
+        # Add known relationships if both tables are in active set
+        active_set = set(tables)
+        if 'sales' in active_set and 'customers' in active_set:
+            join_hints.append(known[0])
+        if 'sales' in active_set and 'monthly_targets' in active_set:
+            join_hints.append(known[1])
+
+        # Auto-detect common columns for uploaded/unknown tables
+        table_list = list(table_cols.keys())
+        for i in range(len(table_list)):
+            for j in range(i + 1, len(table_list)):
+                t1, t2 = table_list[i], table_list[j]
+                # Skip known built-in pairs (already handled)
+                pair = {t1, t2}
+                if pair == {'sales', 'customers'} or pair == {'sales', 'monthly_targets'}:
+                    continue
+                common = set(table_cols[t1]) & set(table_cols[t2])
+                # Exclude generic columns that are unlikely join keys
+                common -= {'id', 'name', 'date', 'created_at', 'updated_at'}
+                for col in common:
+                    join_hints.append(f"{t1}.{col} = {t2}.{col}")
+
+        return join_hints
+
     def _build_schema_context(self, conn: sqlite3.Connection, active_tables: list[str] = None) -> tuple:
         cursor = conn.cursor()
         if active_tables:
@@ -150,10 +188,18 @@ class QueryEngine:
                 return sql
         return None
 
-    async def _generate_sql(self, question: str, schema_str: str, active_tables: list[str] = None) -> str:
+    async def _generate_sql(self, question: str, schema_str: str, active_tables: list[str] = None, join_hints: list[str] = None) -> str:
         constraint = ""
         if active_tables:
             constraint = f"IMPORTANT: You may ONLY query these tables: {', '.join(active_tables)}. Do NOT reference any other table."
+            if len(active_tables) > 1:
+                constraint += f"\n\nYou have access to these tables: {', '.join(active_tables)}"
+                constraint += "\n\nIf the question needs data from multiple tables, write a JOIN query."
+                constraint += "\nIf question only needs one table, use one table."
+                constraint += "\nAlways use table aliases in JOINs: FROM sales s JOIN customers c ON s.customer_id = c.customer_id"
+                if join_hints:
+                    constraint += f"\n\nKnown/detected JOIN relationships:\n" + "\n".join(f"  - {h}" for h in join_hints)
+                constraint += "\n\nFor uploaded tables: look at column names to infer relationships (matching column names between tables are likely join keys)."
         
         prompt = TEXT_TO_SQL_USER.format(schema=schema_str, question=question, active_tables_constraint=constraint)
         raw = await self.llm.call(TEXT_TO_SQL_SYSTEM, prompt)
@@ -286,13 +332,19 @@ class QueryEngine:
 
         schema_str, all_columns, all_column_names = self._build_schema_context(conn, active_tables)
 
+        # Find JOIN keys between active tables
+        join_hints = []
+        if active_tables and len(active_tables) > 1:
+            cursor = conn.cursor()
+            join_hints = self._find_join_keys(active_tables, cursor)
+
         try:
             sql = None
             if demo_mode:
                 sql = self._check_demo_mode(question)
                 
             if not sql:
-                sql = await self._generate_sql(question, schema_str, active_tables)
+                sql = await self._generate_sql(question, schema_str, active_tables, join_hints)
 
             # GUARD 3: INSUFFICIENT DATA Catch
             if "INSUFFICIENT_DATA" in sql:

@@ -41,7 +41,7 @@ export default function LoginPage() {
                 loginTime: new Date().toISOString()
             }
             localStorage.setItem('neuralbi_auth', JSON.stringify(authData))
-            navigate('/')
+            navigate('/dashboard')
         }, 1000)
     }
 
@@ -54,7 +54,7 @@ export default function LoginPage() {
                 loginTime: new Date().toISOString()
             }
             localStorage.setItem('neuralbi_auth', JSON.stringify(authData))
-            navigate('/')
+            navigate('/dashboard')
         }, 800)
     }
 

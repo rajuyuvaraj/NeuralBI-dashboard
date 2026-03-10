@@ -1,12 +1,12 @@
 import React, { useState, useEffect } from 'react'
-import { RefreshCcw } from 'lucide-react'
+import { RefreshCcw, Check } from 'lucide-react'
 import { motion } from 'framer-motion'
-import DataUploader from './DataUploader'
 
-export default function DatasetSwitcher({ activeTable, onSwitch }) {
+const ACCENT_COLORS = ['#6366f1', '#06b6d4', '#10b981', '#f59e0b', '#ec4899']
+
+export default function DatasetSwitcher({ activeTables = [], onToggle, tablesMeta }) {
     const [tables, setTables] = useState([])
     const [loading, setLoading] = useState(true)
-    const [showUploader, setShowUploader] = useState(false)
 
     const fetchTables = async () => {
         setLoading(true)
@@ -25,6 +25,13 @@ export default function DatasetSwitcher({ activeTable, onSwitch }) {
         fetchTables()
     }, [])
 
+    // Listen for upload success to refresh list
+    useEffect(() => {
+        const handler = () => fetchTables()
+        window.addEventListener('neuralbi-dataset-refresh', handler)
+        return () => window.removeEventListener('neuralbi-dataset-refresh', handler)
+    }, [])
+
     const getIcon = (name) => {
         if (name === 'sales') return '💰'
         if (name === 'customers') return '👥'
@@ -38,6 +45,13 @@ export default function DatasetSwitcher({ activeTable, onSwitch }) {
         return name.split('_').map(w => w.charAt(0).toUpperCase() + w.slice(1)).join(' ')
     }
 
+    const getAccentColor = (tableName) => {
+        const idx = activeTables.indexOf(tableName)
+        return idx >= 0 ? ACCENT_COLORS[idx % ACCENT_COLORS.length] : null
+    }
+
+    const allSelected = tables.length > 0 && tables.every(t => activeTables.includes(t.name))
+
     return (
         <div style={{
             width: '260px',
@@ -49,31 +63,70 @@ export default function DatasetSwitcher({ activeTable, onSwitch }) {
             borderRight: '1px solid var(--glass-border)',
             display: 'flex',
             flexDirection: 'column',
-            overflowY: 'auto',
+            overflow: 'hidden',
             zIndex: 50
         }}>
-            {/* Header */}
-            <div style={{ padding: '16px 16px 8px 16px' }}>
-                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-                    <div style={{ fontFamily: '"Space Grotesk", sans-serif', fontWeight: 'bold', fontSize: '14px', color: 'var(--text-primary)' }}>
-                        🗄️ Datasets
+            {/* SECTION A — Scrollable dataset list */}
+            <div className="dataset-scroll" style={{
+                flex: 1,
+                overflowY: 'auto',
+                overflowX: 'hidden',
+                padding: '8px'
+            }}>
+                {/* Header */}
+                <div style={{ padding: '8px 8px 6px 8px' }}>
+                    <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+                        <div style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
+                            <span style={{ fontFamily: '"Space Grotesk", sans-serif', fontWeight: 'bold', fontSize: '14px', color: 'var(--text-primary)' }}>
+                                🗄️ Datasets
+                            </span>
+                            {activeTables.length > 0 && (
+                                <span style={{
+                                    background: 'rgba(99,102,241,0.2)', color: 'var(--accent-primary)',
+                                    fontSize: '10px', padding: '2px 7px', borderRadius: '10px', fontWeight: 600
+                                }}>
+                                    {activeTables.length} active
+                                </span>
+                            )}
+                        </div>
+                        <button
+                            onClick={fetchTables}
+                            className="btn-ghost"
+                            title="Refresh datasets"
+                            style={{ padding: '4px', borderRadius: '4px' }}
+                        >
+                            <RefreshCcw size={14} className={loading ? "spin" : ""} />
+                        </button>
                     </div>
-                    <button
-                        onClick={fetchTables}
-                        className="btn-ghost"
-                        title="Refresh datasets"
-                        style={{ padding: '4px', borderRadius: '4px' }}
-                    >
-                        <RefreshCcw size={14} className={loading ? "spin" : ""} />
-                    </button>
+                    <div style={{ fontSize: '11px', color: 'var(--text-muted)', marginTop: '2px' }}>
+                        Click to toggle datasets on/off
+                    </div>
                 </div>
-                <div style={{ fontSize: '11px', color: 'var(--text-muted)', marginTop: '2px' }}>
-                    Click to switch active dataset
-                </div>
-            </div>
+
+                {/* Select All / Clear All */}
+                {tables.length > 0 && !loading && (
+                    <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: '2px 12px 6px' }}>
+                        <button
+                            onClick={() => {
+                                if (allSelected) {
+                                    tables.forEach(t => { if (activeTables.includes(t.name)) onToggle(t.name) })
+                                } else {
+                                    tables.forEach(t => { if (!activeTables.includes(t.name)) onToggle(t.name) })
+                                }
+                            }}
+                            className="btn-ghost"
+                            style={{ padding: '2px 6px', fontSize: '11px', color: 'var(--accent-primary)' }}
+                        >
+                            {allSelected ? 'Clear All' : 'Select All'}
+                        </button>
+                        <span style={{ fontSize: '11px', color: 'var(--text-muted)' }}>
+                            {activeTables.length} of {tables.length} selected
+                        </span>
+                    </div>
+                )}
 
             {/* List */}
-            <div style={{ padding: '8px', flex: 1, overflowY: 'auto' }}>
+            <div style={{ padding: '0 4px' }}>
                 {loading ? (
                     <>
                         <div className="skeleton-card" style={{ height: '72px', borderRadius: '12px', marginBottom: '6px', background: 'linear-gradient(90deg, rgba(255,255,255,0.04) 25%, rgba(255,255,255,0.08) 50%, rgba(255,255,255,0.04) 75%)', backgroundSize: '200% 100%', animation: 'shimmer 1.5s infinite' }} />
@@ -84,30 +137,28 @@ export default function DatasetSwitcher({ activeTable, onSwitch }) {
                     <div style={{ textAlign: 'center', marginTop: '40px' }}>
                         <div style={{ fontSize: '32px', opacity: 0.5 }}>🗄️</div>
                         <div style={{ fontSize: '13px', color: 'var(--text-secondary)', marginTop: '8px' }}>No datasets available</div>
-                        <div style={{ fontSize: '11px', color: 'var(--text-muted)', marginTop: '4px' }}>Upload a CSV below to get started</div>
-                        <div style={{ fontSize: '16px', color: 'var(--text-muted)', marginTop: '8px' }}>↓</div>
+                        <div style={{ fontSize: '11px', color: 'var(--text-muted)', marginTop: '4px' }}>Click "+ Add Dataset" to get started</div>
                     </div>
                 ) : (
                     tables.map(table => {
-                        const isActive = activeTable === table.name
+                        const isActive = activeTables.includes(table.name)
+                        const accent = getAccentColor(table.name)
                         return (
                             <motion.div
                                 key={table.name}
                                 animate={{ scale: 1 }}
                                 whileTap={{ scale: 0.98 }}
-                                onClick={() => {
-                                    onSwitch(table.name)
-                                }}
+                                onClick={() => onToggle(table.name)}
                                 style={{
-                                    padding: '12px 14px',
-                                    borderRadius: '12px',
+                                    padding: '10px 12px',
+                                    borderRadius: '10px',
                                     cursor: 'pointer',
-                                    marginBottom: '6px',
+                                    marginBottom: '4px',
                                     transition: 'all 0.2s ease',
                                     position: 'relative',
-                                    background: isActive ? 'rgba(99,102,241,0.12)' : 'transparent',
-                                    border: isActive ? '1px solid rgba(99,102,241,0.5)' : '1px solid transparent',
-                                    boxShadow: isActive ? '0 0 16px rgba(99,102,241,0.15), inset 0 1px 0 rgba(255,255,255,0.06)' : 'none',
+                                    background: isActive ? `${accent}1F` : 'transparent',
+                                    border: isActive ? `1px solid ${accent}80` : '1px solid transparent',
+                                    boxShadow: isActive ? `0 0 16px ${accent}26` : 'none',
                                 }}
                                 onMouseEnter={(e) => {
                                     if (!isActive) {
@@ -126,38 +177,41 @@ export default function DatasetSwitcher({ activeTable, onSwitch }) {
                                     <div style={{
                                         position: 'absolute', left: 0, top: 0, height: '100%', width: '3px',
                                         borderRadius: '3px 0 0 3px',
-                                        background: 'linear-gradient(180deg, var(--accent-primary), var(--accent-cyan))'
+                                        background: accent
                                     }} />
                                 )}
 
-                                {/* Row 1: Title */}
-                                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-                                    <div style={{ fontSize: '13px', fontWeight: 600, color: isActive ? 'var(--text-primary)' : 'var(--text-secondary)', display: 'flex', alignItems: 'center', gap: '6px' }}>
-                                        <span>{getIcon(table.name)}</span>
-                                        <span>{formatName(table.name)}</span>
+                                {/* Checkmark badge */}
+                                {isActive && (
+                                    <div style={{
+                                        position: 'absolute', top: '6px', right: '6px',
+                                        width: '18px', height: '18px', borderRadius: '50%',
+                                        background: accent, color: 'white',
+                                        display: 'flex', alignItems: 'center', justifyContent: 'center',
+                                        fontSize: '10px'
+                                    }}>
+                                        <Check size={11} />
                                     </div>
-                                    {isActive && (
-                                        <div style={{
-                                            background: 'rgba(99,102,241,0.2)',
-                                            color: 'var(--accent-primary)',
-                                            fontSize: '9px', fontWeight: 700, letterSpacing: '1px',
-                                            padding: '2px 6px', borderRadius: '4px', border: '1px solid rgba(99,102,241,0.4)',
-                                        }}>
-                                            ACTIVE
-                                        </div>
-                                    )}
+                                )}
+
+                                {/* Row 1: Title */}
+                                <div style={{ display: 'flex', alignItems: 'center', gap: '6px', paddingRight: isActive ? '22px' : 0 }}>
+                                    <span style={{ fontSize: '14px' }}>{getIcon(table.name)}</span>
+                                    <span style={{ fontSize: '13px', fontWeight: 600, color: isActive ? 'var(--text-primary)' : 'var(--text-secondary)' }}>
+                                        {formatName(table.name)}
+                                    </span>
                                 </div>
 
                                 {/* Row 2: Stats */}
-                                <div style={{ fontSize: '11px', color: 'var(--text-muted)', marginTop: '3px' }}>
+                                <div style={{ fontSize: '11px', color: 'var(--text-muted)', marginTop: '2px' }}>
                                     {table.row_count} rows • {table.col_count} cols
                                 </div>
 
                                 {/* Row 3: Chips */}
-                                <div style={{ marginTop: '6px', display: 'flex', gap: '4px', flexWrap: 'wrap' }}>
+                                <div style={{ marginTop: '5px', display: 'flex', gap: '3px', flexWrap: 'wrap' }}>
                                     {table.preview_cols?.map(col => (
                                         <div key={col} style={{
-                                            background: 'rgba(255,255,255,0.06)', borderRadius: '4px', padding: '1px 6px',
+                                            background: 'rgba(255,255,255,0.06)', borderRadius: '3px', padding: '1px 5px',
                                             fontSize: '10px', color: 'var(--text-muted)', fontFamily: 'JetBrains Mono, monospace'
                                         }}>
                                             {col}
@@ -165,7 +219,7 @@ export default function DatasetSwitcher({ activeTable, onSwitch }) {
                                     ))}
                                     {table.col_count > 3 && (
                                         <div style={{
-                                            background: 'rgba(255,255,255,0.06)', borderRadius: '4px', padding: '1px 6px',
+                                            background: 'rgba(255,255,255,0.06)', borderRadius: '3px', padding: '1px 5px',
                                             fontSize: '10px', color: 'var(--text-muted)', fontFamily: 'JetBrains Mono, monospace'
                                         }}>
                                             +{table.col_count - 3} more
@@ -187,51 +241,6 @@ export default function DatasetSwitcher({ activeTable, onSwitch }) {
                     })
                 )}
             </div>
-
-            {/* Bottom Section */}
-            <div style={{ padding: '8px 16px 16px 16px' }}>
-                <div style={{ height: '1px', background: 'var(--glass-border)', margin: '8px 0' }} />
-                {!showUploader ? (
-                    <button
-                        onClick={() => setShowUploader(true)}
-                        style={{
-                            width: '100%',
-                            border: '1px dashed var(--glass-border)',
-                            background: 'transparent',
-                            borderRadius: '10px',
-                            padding: '10px',
-                            color: 'var(--text-muted)',
-                            fontSize: '13px',
-                            cursor: 'pointer',
-                            textAlign: 'center',
-                            transition: 'all 0.2s',
-                        }}
-                        onMouseEnter={(e) => { e.currentTarget.style.borderColor = 'var(--accent-cyan)'; e.currentTarget.style.color = 'var(--accent-cyan)' }}
-                        onMouseLeave={(e) => { e.currentTarget.style.borderColor = 'var(--glass-border)'; e.currentTarget.style.color = 'var(--text-muted)' }}
-                    >
-                        📤 Upload CSV / Excel
-                    </button>
-                ) : (
-                    <div style={{ background: 'rgba(0,0,0,0.2)', borderRadius: '8px', border: '1px solid var(--glass-border)' }}>
-                        <div style={{ display: 'flex', justifyContent: 'flex-end', padding: '4px 8px' }}>
-                            <button onClick={() => setShowUploader(false)} className="btn-ghost" style={{ fontSize: '10px', padding: '2px 6px' }}>Close</button>
-                        </div>
-                        <div style={{ padding: '0 8px 8px 8px' }}>
-                            {/* Reusing existing DataUploader via embedding its logic, or just a compact wrapper.
-                                 Since DataUploader has a wide UI out of the box, we inject it here. It scales down responsively. */}
-                            <DataUploader
-                                activeDatasets={[]}
-                                setActiveDatasets={() => { }}
-                                setDatasetContext={() => { }}
-                                onUploadSuccess={(data) => {
-                                    setShowUploader(false)
-                                    fetchTables()
-                                    onSwitch(data.table)
-                                }}
-                            />
-                        </div>
-                    </div>
-                )}
             </div>
         </div>
     )

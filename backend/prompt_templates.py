@@ -149,3 +149,78 @@ and generate a BROADER alternative SQL query
 that is more likely to return data.
 Return only the corrected SQL query.
 """
+
+DASHBOARD_PLAN_SYSTEM = """
+You are a senior BI dashboard designer.
+You design Power BI style dashboards.
+Return ONLY valid JSON. No markdown."""
+
+DASHBOARD_PLAN_USER = """
+Given this database schema:
+{schema}
+
+Design a complete executive dashboard.
+Return a JSON plan with exactly this structure:
+
+{{
+  "dashboard_title": "Sales Performance Dashboard",
+  "subtitle": "Real-time overview of business metrics",
+
+  "kpis": [
+    {{
+      "id": "kpi_1",
+      "title": "Total Revenue",
+      "sql": "SELECT SUM(revenue) as value FROM sales",
+      "format": "currency",
+      "icon": "💰",
+      "color": "indigo",
+      "trend_sql": "SELECT strftime('%Y-%m',date) as month, SUM(revenue) as value FROM sales GROUP BY month ORDER BY month DESC LIMIT 2"
+    }}
+  ],
+
+  "charts": [
+    {{
+      "id": "chart_1",
+      "title": "Revenue by Region",
+      "sql": "SELECT region, SUM(revenue) AS total_revenue FROM sales GROUP BY region ORDER BY total_revenue DESC",
+      "chart_type": "bar",
+      "x_axis": "region",
+      "y_axis": "total_revenue",
+      "color_field": null,
+      "size": "medium",
+      "insight": "one sentence key takeaway"
+    }}
+  ],
+
+  "data_table": {{
+    "title": "Recent Transactions",
+    "sql": "SELECT * FROM sales ORDER BY date DESC LIMIT 100",
+    "columns_to_show": ["date","region","product_category","revenue","units_sold"]
+  }}
+}}
+
+Rules for KPIs (make exactly 4):
+  - Total Revenue → SUM of main revenue column
+  - Total Records → COUNT(*)
+  - Top Performer → MAX or most frequent category
+  - Average Value → AVG of main metric
+
+Rules for charts (make exactly 6):
+  Chart 1: Main metric by top category (bar)
+  Chart 2: Time trend of main metric (line)
+  Chart 3: Distribution/breakdown (pie, max 7 slices)
+  Chart 4: Second dimension analysis (bar)
+  Chart 5: Comparison across categories (grouped_bar or area)
+  Chart 6: If JOIN possible → cross-table insight else → another breakdown (bar)
+
+  STRICT: Never use pie if result > 7 rows.
+  STRICT: Never use pie for time-series data.
+  Use line/area for any date/month/year column.
+
+Rules for size field:
+  "large"  → takes 2 columns in grid
+  "medium" → takes 1 column
+  "small"  → takes 1 column (compact)
+
+Return ONLY the JSON. No explanation.
+"""

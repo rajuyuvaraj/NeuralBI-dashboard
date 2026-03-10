@@ -7,13 +7,15 @@ import NeuralBackground from './components/NeuralBackground'
 import QueryTerminal from './components/QueryTerminal'
 import PipelineTracer from './components/PipelineTracer'
 import ChartCard from './components/ChartCard'
-import DataUploader from './components/DataUploader'
 import ChatHistory from './components/ChatHistory'
 import AutoAnalysis, { AutoAnalysisLoader } from './components/AutoAnalysis'
 import NarrativeReport from './components/NarrativeReport'
 import DatasetSwitcher from './components/DatasetSwitcher'
-import { Moon, Sun, RotateCcw, Clock, Zap, FileText, Database, Settings2 } from 'lucide-react'
+import DashboardView from './components/DashboardView'
+import LandingPage from './pages/LandingPage'
+import { Moon, Sun, RotateCcw, Clock, Zap, FileText, Database, Settings2, X } from 'lucide-react'
 
+const API_BASE_URL = 'http://localhost:8000'
 const API_URL = '/api'
 
 const EMPTY_STATE_SUGGESTIONS = [
@@ -41,37 +43,49 @@ export function Dashboard() {
     const [sessionId, setSessionId] = useState(null)
     const [isDemoMode, setIsDemoMode] = useState(false)
     const [rowCount, setRowCount] = useState(0)
+    const [dashboardView, setDashboardView] = useState(false)
 
     // Global Dataset State
-    const [activeTable, setActiveTable] = useState(null)
+    const [activeTables, setActiveTables] = useState([])
     const [datasetContext, setDatasetContext] = useState(null)
+    const [tablesMeta, setTablesMeta] = useState([])
 
     // AutoAnalysis & Narrative State
     const [autoAnalyses, setAutoAnalyses] = useState([])
     const [autoAnalysisLoading, setAutoAnalysisLoading] = useState(false)
     const [autoAnalysisVisible, setAutoAnalysisVisible] = useState(true)
+    const [autoAnalysisDone, setAutoAnalysisDone] = useState(false)
 
     const [showNarrative, setShowNarrative] = useState(false)
     const [narrativeText, setNarrativeText] = useState('')
     const [narrativeLoading, setNarrativeLoading] = useState(false)
 
+    // New FollowUp State
+    const [followUpContext, setFollowUpContext] = useState(null)
+
     useEffect(() => {
-        const saved = sessionStorage.getItem('neuralbi_active_table')
-        if (saved) setActiveTable(saved)
+        const saved = sessionStorage.getItem('neuralbi_active_tables')
+        if (saved) {
+            try { setActiveTables(JSON.parse(saved)) } catch (e) { }
+        }
     }, [])
+
+    useEffect(() => {
+        sessionStorage.setItem('neuralbi_active_tables', JSON.stringify(activeTables))
+    }, [activeTables])
 
     const showToast = useCallback((message, type = 'success') => {
         setToast({ message, type })
         setTimeout(() => setToast(null), 3000)
     }, [])
 
-    const handleTableSwitch = useCallback((tableName) => {
-        setActiveTable(tableName)
-        setDashboards([])
-        setAutoAnalyses([])
-        sessionStorage.setItem('neuralbi_active_table', tableName)
-        showToast(`Switched to "${tableName}"`)
-    }, [showToast])
+    const handleToggle = useCallback((tableName) => {
+        setActiveTables(prev =>
+            prev.includes(tableName)
+                ? prev.filter(t => t !== tableName)
+                : [...prev, tableName]
+        )
+    }, [])
 
     // Health check
     useEffect(() => {
@@ -82,9 +96,8 @@ export function Dashboard() {
                 if (data.status === 'error' && data.error_type === "MISSING_API_KEY") {
                     setShowSetupModal(true)
                 }
-                // Initial activeTable set here if not already set by session storage
-                if (!activeTable && data.tables?.length > 0) {
-                    setActiveTable(data.tables[0].name)
+                if (!activeTables.length && data.tables?.length > 0) {
+                    setActiveTables([data.tables[0].name])
                 }
             })
             .catch(() => {
@@ -95,18 +108,18 @@ export function Dashboard() {
             .then((r) => r.json())
             .then((data) => {
                 if (data.tables?.length > 0) {
+                    setTablesMeta(data.tables)
                     const total = data.tables.reduce((sum, t) => sum + t.row_count, 0)
                     setRowCount(total)
-                    // Auto-select first if none selected and no session storage value
-                    if (!activeTable) {
+                    if (!activeTables.length) {
                         const defaultTable = data.tables[0].name
-                        setActiveTable(defaultTable)
+                        setActiveTables([defaultTable])
                         setDatasetContext({ tables: [defaultTable], focus: "Full Overview", set_at: new Date().toISOString() })
                     }
                 }
             })
             .catch(() => { })
-    }, [activeTable])
+    }, [activeTables])
 
     // Demo mode toggle: Ctrl+Shift+D
     useEffect(() => {
@@ -121,53 +134,34 @@ export function Dashboard() {
     }, [])
 
     const runAutoAnalysis = async () => {
-        if (!activeTable) return
+        if (!activeTables.length) return
         setAutoAnalysisLoading(true)
         setAutoAnalysisVisible(true)
+        setAutoAnalysisDone(false)
         try {
             const res = await fetch(`${API_URL}/auto-analyze`, {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ active_tables: [activeTable] })
+                body: JSON.stringify({ active_tables: activeTables })
             })
             const data = await res.json()
             if (data.success && data.analyses && data.analyses.length > 0) {
+                // Keep the auto-analysis container rendered, but still hide the pipeline loading indicator
                 setAutoAnalyses(data.analyses)
-                localStorage.setItem('neuralbi_last_analysis', JSON.stringify({
-                    analyses: data.analyses,
-                    timestamp: Date.now(),
-                    activeTable: activeTable
-                }))
             }
         } finally {
             setAutoAnalysisLoading(false)
+            setAutoAnalysisDone(true)
+            setTimeout(() => setAutoAnalysisDone(false), 3000)
         }
     }
-
-    useEffect(() => {
-        if (!activeTable) return
-
-        const cached = localStorage.getItem('neuralbi_last_analysis')
-        if (cached) {
-            try {
-                const parsed = JSON.parse(cached)
-                const ageMs = Date.now() - parsed.timestamp
-                const thirtyMins = 30 * 60 * 1000
-                if (ageMs < thirtyMins && parsed.analyses && parsed.analyses.length > 0 && parsed.activeTable === activeTable) {
-                    setAutoAnalyses(parsed.analyses)
-                    return
-                }
-            } catch (e) { }
-        }
-        runAutoAnalysis()
-    }, [activeTable])
 
     const generateNarrative = async () => {
         setNarrativeLoading(true)
         setShowNarrative(true)
 
         const allCharts = [
-            ...autoAnalyses.map(a => ({
+            ...(autoAnalyses || []).map(a => ({ // Use autoAnalyses state
                 title: a.chart_config?.title || a.question,
                 chart_type: a.chart_config?.chart_type || 'bar',
                 insights: a.insights || [],
@@ -190,7 +184,7 @@ export function Dashboard() {
                 body: JSON.stringify({
                     charts: allCharts,
                     report_type: 'executive',
-                    active_tables: [activeTable],
+                    active_tables: activeTables,
                     focus_area: datasetContext?.focus || "Full Overview"
                 })
             })
@@ -242,7 +236,8 @@ export function Dashboard() {
                     question,
                     session_id: sessionId,
                     demo_mode: isDemoMode,
-                    active_tables: [activeTable]
+                    active_tables: activeTables,
+                    follow_up_context: followUpContext // Pass followUpContext
                 }),
             })
 
@@ -260,20 +255,13 @@ export function Dashboard() {
 
             if (data.success) {
                 setSessionId(data.session_id)
-                setDashboards((prev) => [
-                    {
-                        id: Date.now(),
-                        question,
-                        data: data.data,
-                        chart_config: data.chart_config,
-                        sql_query: data.sql_query,
-                        insights: data.insights,
-                        confidence: data.confidence,
-                        row_count: data.row_count,
-                        warnings: data.warnings
-                    },
-                    ...prev,
-                ])
+                // Add follow-up flags if overriding from mode B
+                if (isFollowUpOverride && followUpContext) {
+                    setDashboards(prev => [{ ...data, id: Date.now(), question, is_followup: true, followup_of: followUpContext.chart_title }, ...prev])
+                } else {
+                    setDashboards(prev => [{ ...data, id: Date.now(), question }, ...prev])
+                }
+
                 showToast(`Chart generated — ${data.row_count} rows analyzed`, 'success')
             } else {
                 if (data.error_type === "RATE_LIMIT" && !isRetry) {
@@ -316,17 +304,66 @@ export function Dashboard() {
             if (!isRetry) {
                 setTimeout(() => setLoading(false), 500)
             }
+            setFollowUpContext(null) // Clear follow-up context after query
         }
-    }, [sessionId, isDemoMode, showToast, activeTable])
+    }, [sessionId, isDemoMode, showToast, activeTables, followUpContext])
 
     const handleRemoveDashboard = (id) => {
         setDashboards((prev) => prev.filter((d) => d.id !== id))
+    }
+
+    const handleDragStart = (e) => {
+        setIsDragging(true)
+    }
+
+    // --- Follow-up Handlers ---
+    const handleChatWithChart = (analysis) => {
+        setFollowUpContext({
+            source: 'auto_analysis',
+            chart_title: analysis.chart_config?.title,
+            original_question: analysis.question,
+            sql_query: analysis.sql_query,
+            chart_config: analysis.chart_config,
+            data_sample: analysis.data?.slice(0, 5) || []
+        })
+
+        // Scroll to terminal
+        document.getElementById('query-terminal')?.scrollIntoView({ behavior: 'smooth' })
+
+        // Focus the input directly on next tick
+        setTimeout(() => {
+            document.getElementById('query-input')?.focus()
+        }, 100)
+
+        // Handle auto-submit mechanism if it was kicked off from a quick-chip
+        if (analysis.quickAction) {
+            setTimeout(() => {
+                const inputElement = document.getElementById('query-input')
+                if (inputElement) {
+                    const reactProps = Object.keys(inputElement).find(k => k.startsWith('__reactProps$'))
+                    if (reactProps) {
+                        inputElement[reactProps].onChange({ target: { value: analysis.quickAction } })
+                    }
+                }
+            }, 150)
+        }
+    }
+
+    const clearFollowUpContext = () => {
+        setFollowUpContext(null)
     }
 
     const handleNewSession = () => {
         setDashboards([])
         setSessionId(null)
         setError(null)
+        setAutoAnalysis(null) // Clear auto-analysis on new session
+        setFollowUpContext(null) // Clear follow-up context on new session
+    }
+
+    const handleUploadSuccess = (data) => {
+        const name = data.table_name || data.table
+        setActiveTables(prev => prev.includes(name) ? prev : [...prev, name])
     }
 
     return (
@@ -368,10 +405,38 @@ export function Dashboard() {
                 </div>
 
                 <div className="header-actions" style={{ position: 'relative', display: 'flex', alignItems: 'center', gap: '8px' }}>
-                    <button className="btn-ghost" onClick={runAutoAnalysis} style={{ padding: '6px 12px', display: 'flex', gap: '6px', alignItems: 'center', fontSize: '12px' }}>
-                        {autoAnalysisLoading ? <span style={{ animation: 'spin 2s linear infinite' }}>⏳</span> : <Zap size={14} />} {autoAnalysisLoading ? 'Analyzing...' : 'Auto-Analyze'}
+                    <button
+                        className="btn-ghost"
+                        onClick={runAutoAnalysis}
+                        disabled={!activeTables.length || autoAnalysisLoading}
+                        title={!activeTables.length ? 'Select a dataset first' : ''}
+                        style={{
+                            padding: '6px 12px', display: 'flex', gap: '6px', alignItems: 'center', fontSize: '12px',
+                            border: '1px solid rgba(99,102,241,0.4)',
+                            opacity: !activeTables.length ? 0.4 : 1,
+                            cursor: !activeTables.length ? 'not-allowed' : autoAnalysisLoading ? 'not-allowed' : 'pointer'
+                        }}
+                    >
+                        {autoAnalysisLoading
+                            ? <><span style={{ animation: 'spin 2s linear infinite' }}>⏳</span> Analyzing...</>
+                            : autoAnalysisDone
+                                ? <>✅ Analysis Ready</>
+                                : <><Zap size={14} /> Auto-Analyze</>}
                     </button>
-                    {(dashboards.length > 0 || autoAnalyses.length > 0) && (
+                    <button
+                        onClick={() => setDashboardView(true)}
+                        disabled={!activeTables.length}
+                        style={{
+                            background: 'linear-gradient(135deg, #8b5cf6, #6366f1)',
+                            padding: '6px 14px', borderRadius: '8px', color: 'white',
+                            display: 'flex', gap: '6px', alignItems: 'center', fontSize: '13px', fontWeight: 600,
+                            border: 'none', cursor: !activeTables.length ? 'not-allowed' : 'pointer',
+                            opacity: !activeTables.length ? 0.4 : 1
+                        }}
+                    >
+                        📊 Dashboard
+                    </button>
+                    {(dashboards.length > 0 || (autoAnalyses && autoAnalyses.length > 0)) && ( // Use autoAnalyses state
                         <button onClick={generateNarrative} disabled={narrativeLoading} style={{ background: 'linear-gradient(135deg, var(--accent-green), var(--accent-cyan))', padding: '6px 14px', borderRadius: '8px', color: 'white', display: 'flex', gap: '6px', alignItems: 'center', fontSize: '12px', fontWeight: 600, border: 'none', cursor: 'pointer', opacity: narrativeLoading ? 0.7 : 1 }}>
                             {narrativeLoading ? <span style={{ animation: 'spin 2s linear infinite' }}>⏳</span> : <FileText size={14} />} {narrativeLoading ? 'Writing report...' : 'Generate Report'}
                         </button>
@@ -421,102 +486,136 @@ export function Dashboard() {
                 </div>
             </header>
 
-            <DatasetSwitcher activeTable={activeTable} onSwitch={handleTableSwitch} />
+            <DatasetSwitcher activeTables={activeTables} onToggle={handleToggle} tablesMeta={tablesMeta} />
 
             {/* Main Area */}
             <main className="main-area" style={{ marginLeft: '260px', paddingTop: '80px', paddingBottom: '120px', width: 'calc(100% - 260px)' }}>
 
-                <div className="dashboard-canvas">
-                    {/* Pipeline Tracer */}
-                    <PipelineTracer stage={pipelineStage} visible={showPipeline} />
-
-                    {/* Auto Analysis */}
-                    {autoAnalysisLoading && <AutoAnalysisLoader rowCount={rowCount} tableCount={health?.tables?.length || 1} />}
-                    {!autoAnalysisLoading && autoAnalyses.length > 0 && autoAnalysisVisible && (
-                        <AutoAnalysis
-                            analyses={autoAnalyses}
-                            onRefresh={runAutoAnalysis}
-                            onHide={() => setAutoAnalysisVisible(false)}
-                        />
-                    )}
-
-                    {/* Empty State */}
-                    {dashboards.length === 0 && !showSkeleton && !autoAnalysisLoading && (!autoAnalyses.length || !autoAnalysisVisible) && (
-                        <div className="empty-state">
-                            <svg className="empty-state-icon" viewBox="0 0 120 120" fill="none">
-                                <circle cx="60" cy="60" r="50" stroke="url(#emptyGrad)" strokeWidth="2" fill="none" opacity="0.4" />
-                                <circle cx="60" cy="40" r="8" fill="#6366f1" opacity="0.8" />
-                                <circle cx="40" cy="70" r="6" fill="#06b6d4" opacity="0.7" />
-                                <circle cx="80" cy="70" r="6" fill="#10b981" opacity="0.7" />
-                                <circle cx="45" cy="50" r="4" fill="#f59e0b" opacity="0.5" />
-                                <circle cx="75" cy="50" r="4" fill="#8b5cf6" opacity="0.5" />
-                                <line x1="60" y1="40" x2="40" y2="70" stroke="#6366f1" strokeWidth="1.5" opacity="0.3" />
-                                <line x1="60" y1="40" x2="80" y2="70" stroke="#06b6d4" strokeWidth="1.5" opacity="0.3" />
-                                <line x1="40" y1="70" x2="80" y2="70" stroke="#10b981" strokeWidth="1.5" opacity="0.3" />
-                                <line x1="60" y1="40" x2="45" y2="50" stroke="#f59e0b" strokeWidth="1" opacity="0.3" />
-                                <line x1="60" y1="40" x2="75" y2="50" stroke="#8b5cf6" strokeWidth="1" opacity="0.3" />
-                                <defs>
-                                    <linearGradient id="emptyGrad" x1="0" y1="0" x2="120" y2="120">
-                                        <stop stopColor="#6366f1" />
-                                        <stop offset="1" stopColor="#06b6d4" />
-                                    </linearGradient>
-                                </defs>
-                            </svg>
-                            <h2>Your data canvas is empty</h2>
-                            <p>Type a question below to generate your first chart</p>
-                            <div className="suggestion-cards">
-                                {EMPTY_STATE_SUGGESTIONS.map((s, i) => (
-                                    <div
-                                        key={i}
-                                        className="suggestion-card"
-                                        style={{ animationDelay: `${i * 100}ms` }}
-                                        onClick={() => handleQuery(s.text)}
-                                    >
-                                        <span style={{ marginRight: '8px' }}>{s.icon}</span>
-                                        {s.text}
-                                    </div>
-                                ))}
-                            </div>
-                        </div>
-                    )}
-
-                    <div className="dashboard-grid">
-                        {/* Skeleton Container inside grid to match real card size */}
-                        {showSkeleton && (
-                            <div className="glass-card layout-animation" style={{ padding: '24px', display: 'flex', flexDirection: 'column', gap: '20px' }}>
-                                <div className="skeleton-line" style={{ width: '40%', height: '28px', borderRadius: '4px' }} />
-                                <div className="skeleton-line" style={{ width: '25%', height: '16px', borderRadius: '4px' }} />
-                                <div className="skeleton-chart" style={{ width: '100%', height: '320px', borderRadius: '8px', marginTop: '10px' }} />
-                                <div style={{ display: 'flex', gap: '10px', marginTop: '10px' }}>
-                                    <div className="skeleton-line" style={{ width: '10px', height: '10px', borderRadius: '50%' }} />
-                                    <div className="skeleton-line" style={{ width: '80%', height: '16px', borderRadius: '4px' }} />
-                                </div>
-                                <div style={{ display: 'flex', gap: '10px' }}>
-                                    <div className="skeleton-line" style={{ width: '10px', height: '10px', borderRadius: '50%' }} />
-                                    <div className="skeleton-line" style={{ width: '65%', height: '16px', borderRadius: '4px' }} />
-                                </div>
-                            </div>
-                        )}
-
-                        {dashboards.map((d) =>
-                            d.error ? (
-                                <ErrorCard
-                                    key={d.id}
-                                    dashboard={d}
-                                    onSuggestionClick={handleQuery}
-                                    onRetry={() => handleQuery(d.question)}
-                                />
-                            ) : (
-                                <ChartCard
-                                    key={d.id}
-                                    dashboard={d}
-                                    onRemove={() => handleRemoveDashboard(d.id)}
-                                    onSuggestionClick={handleQuery}
-                                />
-                            )
-                        )}
+                {dashboardView && (
+                    <div style={{ position: 'relative', width: '100%', height: 'calc(100vh - 80px)' }}>
+                        <DashboardView activeTables={activeTables} onClose={() => setDashboardView(false)} />
                     </div>
-                </div>
+                )}
+
+                {!dashboardView && (
+                    <div style={{
+                        maxWidth: '1200px', margin: '0 auto', width: '100%',
+                        position: 'relative', display: 'flex', flexDirection: 'column',
+                        minHeight: 'calc(100vh - 200px)'
+                    }}>
+                        {/* Always show QueryTerminal now across modes */}
+                        <div id="query-terminal" style={{
+                            width: '100%', maxWidth: '800px', margin: '0 auto', display: 'flex', flexDirection: 'column'
+                        }}>
+                            <QueryTerminal
+                                onSubmit={handleQuery}
+                                loading={loading}
+                                error={error}
+                                activeTables={activeTables}
+                                onUploadSuccess={handleUploadSuccess}
+                                followUpContext={followUpContext}
+                                onClearFollowUp={clearFollowUpContext}
+                            />
+                        </div>
+
+                        {/* Pipeline Tracer */}
+                        <PipelineTracer stage={pipelineStage} visible={showPipeline} />
+
+                        {/* Auto Analysis */}
+                        {autoAnalysisLoading && <AutoAnalysisLoader rowCount={rowCount} tableCount={health?.tables?.length || 1} />}
+                        {!autoAnalysisLoading && autoAnalyses && autoAnalyses.length > 0 && autoAnalysisVisible && (
+                            <motion.div
+                                initial={{ opacity: 0, y: 30 }}
+                                animate={{ opacity: 1, y: 0 }}
+                                transition={{ duration: 0.6, ease: 'easeOut' }}
+                                style={{ marginTop: '20px' }}
+                            >
+                                <AutoAnalysis
+                                    analyses={autoAnalyses.map(a => ({ ...a, onChatWithChart: handleChatWithChart }))}
+                                    onRefresh={runAutoAnalysis}
+                                    onHide={() => setAutoAnalysisVisible(false)}
+                                />
+                            </motion.div>
+                        )}
+
+                        {/* Empty State */}
+                        {dashboards.length === 0 && !showSkeleton && !autoAnalysisLoading && (!autoAnalyses || autoAnalyses.length === 0 || !autoAnalysisVisible) && (
+                            <div className="empty-state">
+                                <div className="empty-state-robot">🤖</div>
+                                {activeTables.length > 0 ? (
+                                    <>
+                                        <h2 style={{ fontFamily: 'Space Grotesk, sans-serif', fontWeight: 'bold', fontSize: '22px' }}>
+                                            Ready to analyze {activeTables.join(', ')}
+                                        </h2>
+                                        <p style={{ color: 'var(--text-secondary)', marginBottom: '4px' }}>Click ⚡ Auto-Analyze for an instant AI briefing</p>
+                                        <p style={{ color: 'var(--text-secondary)' }}>Or type your own question below</p>
+                                        <div style={{ display: 'flex', gap: '12px', marginTop: '20px' }}>
+                                            <button
+                                                className="empty-state-cta-primary"
+                                                onClick={runAutoAnalysis}
+                                                disabled={autoAnalysisLoading}
+                                            >
+                                                ⚡ Auto-Analyze
+                                            </button>
+                                            <button
+                                                className="btn-ghost empty-state-cta-ghost"
+                                                onClick={() => document.querySelector('.terminal-input')?.focus()}
+                                            >
+                                                💬 Ask a Question
+                                            </button>
+                                        </div>
+                                    </>
+                                ) : (
+                                    <>
+                                        <h2 style={{ fontFamily: 'Space Grotesk, sans-serif', fontWeight: 'bold', fontSize: '22px' }}>
+                                            Ready to analyze your data
+                                        </h2>
+                                        <p className="empty-state-no-dataset">
+                                            <span className="empty-state-arrow">←</span> Select datasets from the left panel to begin
+                                        </p>
+                                    </>
+                                )}
+                            </div>
+                        )}
+
+                        <div className="dashboard-grid">
+                            {/* Skeleton Container inside grid to match real card size */}
+                            {showSkeleton && (
+                                <div className="glass-card layout-animation" style={{ padding: '24px', display: 'flex', flexDirection: 'column', gap: '20px' }}>
+                                    <div className="skeleton-line" style={{ width: '40%', height: '28px', borderRadius: '4px' }} />
+                                    <div className="skeleton-line" style={{ width: '25%', height: '16px', borderRadius: '4px' }} />
+                                    <div className="skeleton-chart" style={{ width: '100%', height: '320px', borderRadius: '8px', marginTop: '10px' }} />
+                                    <div style={{ display: 'flex', gap: '10px', marginTop: '10px' }}>
+                                        <div className="skeleton-line" style={{ width: '10px', height: '10px', borderRadius: '50%' }} />
+                                        <div className="skeleton-line" style={{ width: '80%', height: '16px', borderRadius: '4px' }} />
+                                    </div>
+                                    <div style={{ display: 'flex', gap: '10px' }}>
+                                        <div className="skeleton-line" style={{ width: '10px', height: '10px', borderRadius: '50%' }} />
+                                        <div className="skeleton-line" style={{ width: '65%', height: '16px', borderRadius: '4px' }} />
+                                    </div>
+                                </div>
+                            )}
+
+                            {dashboards.map((d) =>
+                                d.error ? (
+                                    <ErrorCard
+                                        key={d.id}
+                                        dashboard={d}
+                                        onSuggestionClick={handleQuery}
+                                        onRetry={() => handleQuery(d.question)}
+                                    />
+                                ) : (
+                                    <ChartCard
+                                        key={d.id}
+                                        dashboard={d}
+                                        onRemove={() => handleRemoveDashboard(d.id)}
+                                        onSuggestionClick={handleQuery}
+                                    />
+                                )
+                            )}
+                        </div>
+                    </div>
+                )}
             </main>
 
             <ChatHistory
@@ -536,14 +635,20 @@ export function Dashboard() {
             )}
 
             {/* Terminal */}
-            <div style={{ position: 'fixed', bottom: 0, left: '260px', width: 'calc(100% - 260px)', zIndex: 100 }}>
-                <QueryTerminal
-                    onSubmit={handleQuery}
-                    loading={loading}
-                    error={error}
-                    activeTable={activeTable}
-                />
-            </div>
+            {!dashboardView && (
+                <div style={{ position: 'fixed', bottom: 0, left: '260px', width: 'calc(100% - 260px)', zIndex: 100 }}>
+                    <QueryTerminal
+                        onSubmit={handleQuery}
+                        loading={loading}
+                        error={error}
+                        activeTables={activeTables}
+                        onUploadSuccess={(data) => {
+                            const name = data.table_name || data.table
+                            setActiveTables(prev => prev.includes(name) ? prev : [...prev, name])
+                        }}
+                    />
+                </div>
+            )}
 
             {/* Toast */}
             {toast && (
@@ -673,9 +778,10 @@ export default function App() {
     return (
         <BrowserRouter>
             <Routes>
+                <Route path="/" element={<LandingPage />} />
                 <Route path="/login" element={<LoginPage />} />
                 <Route path="/register" element={<RegisterPage />} />
-                <Route path="/" element={<ProtectedRoute><Dashboard /></ProtectedRoute>} />
+                <Route path="/dashboard" element={<ProtectedRoute><Dashboard /></ProtectedRoute>} />
             </Routes>
         </BrowserRouter>
     )
