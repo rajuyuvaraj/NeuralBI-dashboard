@@ -24,7 +24,7 @@ export default function DashboardView({ activeTables, onClose }) {
     const loadDashboard = async () => {
         setLoading(true);
         try {
-            const API_URL = `${import.meta.env.VITE_API_URL || 'http://localhost:8000'}/api`
+            const API_URL = import.meta.env.VITE_API_URL ? `${import.meta.env.VITE_API_URL}/api` : '/api'
             const res = await fetch(`${API_URL}/dashboard`, {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },

@@ -5,7 +5,7 @@ import DatasetOverview from './DatasetOverview'
 
 import { Link } from 'lucide-react'
 
-const API_URL = `${import.meta.env.VITE_API_URL || 'http://localhost:8000'}/api`
+const API_URL = import.meta.env.VITE_API_URL ? `${import.meta.env.VITE_API_URL}/api` : '/api'
 
 export default function DataUploader({ activeDatasets, setActiveDatasets, setDatasetContext, onUploadSuccess }) {
     const [isOpen, setIsOpen] = useState(false)

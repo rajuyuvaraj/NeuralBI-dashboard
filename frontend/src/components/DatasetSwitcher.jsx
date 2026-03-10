@@ -11,7 +11,7 @@ export default function DatasetSwitcher({ activeTables = [], onToggle, tablesMet
     const fetchTables = async () => {
         setLoading(true)
         try {
-            const API_URL = `${import.meta.env.VITE_API_URL || 'http://localhost:8000'}/api`
+            const API_URL = import.meta.env.VITE_API_URL ? `${import.meta.env.VITE_API_URL}/api` : '/api'
             const res = await fetch(`${API_URL}/tables`)
             const data = await res.json()
             setTables(data.tables || [])

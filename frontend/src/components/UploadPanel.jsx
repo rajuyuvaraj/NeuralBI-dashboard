@@ -1,7 +1,7 @@
 import { useState, useRef } from 'react'
 import Papa from 'papaparse'
 
-const API_URL = `${import.meta.env.VITE_API_URL || 'http://localhost:8000'}/api`
+const API_URL = import.meta.env.VITE_API_URL ? `${import.meta.env.VITE_API_URL}/api` : '/api'
 
 const TYPE_ICONS = { NUMERIC: '🔢', TEXT: '🔤', DATE: '📅' }
 const TYPE_COLORS = { NUMERIC: 'rgba(245,158,11,0.2)', TEXT: 'rgba(6,182,212,0.2)', DATE: 'rgba(99,102,241,0.2)' }
