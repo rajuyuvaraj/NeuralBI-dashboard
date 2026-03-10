@@ -18,7 +18,13 @@ from query_engine import QueryEngine
 
 load_dotenv()
 
-DB_PATH = os.getenv("DATABASE_PATH", "../data/neuralbi.db")
+DB_PATH = os.getenv("DATABASE_PATH", "./data/neuralbi.db")
+
+# Ensure the database directory exists
+db_dir = os.path.dirname(DB_PATH)
+if db_dir and not os.path.exists(db_dir):
+    os.makedirs(db_dir, exist_ok=True)
+    print(f"Created database directory: {db_dir}")
 
 @asynccontextmanager
 async def lifespan(app: FastAPI):
@@ -27,7 +33,7 @@ async def lifespan(app: FastAPI):
     if not api_key:
         print("\n\033[93mWARNING: GROQ_API_KEY not set in .env\033[0m\n")
     if not os.path.exists(DB_PATH):
-        print(f"\n\033[93mWARNING: Database not found at {DB_PATH}\033[0m\n")
+        print(f"\n\033[93mWARNING: Database not found at {DB_PATH}. A new one will be created on first write.\033[0m\n")
     yield
     # Shutdown
     pass
@@ -36,13 +42,7 @@ app = FastAPI(title="NeuralBI API", lifespan=lifespan)
 
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=[
-        "http://localhost:5173",
-        "http://localhost:3000",
-        "http://127.0.0.1:5173",
-        "http://127.0.0.1:3000",
-        "https://neuralbi.vercel.app"
-    ],
+    allow_origins=["*"],
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
