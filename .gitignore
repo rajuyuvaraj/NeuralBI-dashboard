@@ -1,0 +1,30 @@
+# Python caches and compiled files
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Virtual environments
+venv/
+env/
+.venv/
+ENV/
+
+# Configuration and secrets
+.env
+backend/.env
+
+# SQLite temporary journal and WAL files
+*.db-shm
+*.db-wal
+*.db-journal
+
+# User uploads and dynamic data
+data/uploaded/*
+!data/uploaded/.gitkeep
+
+# IDEs and System files
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db
+nul

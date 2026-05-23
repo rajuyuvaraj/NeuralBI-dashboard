@@ -1,0 +1,601 @@
+id,date,region,product_category,product_name,revenue,units_sold,customer_id,sales_rep
+1,2025-03-28,East,Clothing,Silk Dress Shirt,461.91,19,57,Olivia Clark
+2,2025-12-16,South,Electronics,Laptop Pro X1,4871.1,39,103,David Kim
+3,2025-12-27,West,Furniture,Dining Table Set,188.97,27,12,David Kim
+4,2024-04-26,South,Electronics,Wireless Earbuds Z3,2592.2,46,38,Irene Thompson
+5,2025-12-23,North,Food & Beverage,Cold Press Juice 12pk,294.47,16,59,Irene Thompson
+6,2024-05-28,South,Clothing,Sports Hoodie,431.18,9,111,Bob Martinez
+7,2024-10-09,South,Furniture,Dining Table Set,911.44,1,37,Leo Garcia
+8,2024-11-01,Central,Sports,Mountain Bike 27.5,1741.3,29,69,Hector Patel
+9,2024-12-19,North,Sports,Swimming Goggles Pro,804.24,21,112,David Kim
+10,2025-12-15,West,Sports,Mountain Bike 27.5,528.44,50,53,Alice Johnson
+11,2024-11-21,South,Food & Beverage,Cold Press Juice 12pk,296.76,42,20,Hector Patel
+12,2024-02-07,West,Sports,Swimming Goggles Pro,717.43,7,112,Nathan Brown
+13,2025-03-26,East,Sports,Mountain Bike 27.5,109.47,10,53,Nathan Brown
+14,2025-11-01,West,Electronics,Tablet Air M2,3951.32,17,44,James Anderson
+15,2025-12-10,South,Electronics,Smart TV 55in,4291.24,35,49,Frank Wilson
+16,2025-10-03,South,Sports,Running Shoes Ultra,1265.52,16,81,Karen White
+17,2024-10-21,West,Electronics,Tablet Air M2,4896.02,49,82,Leo Garcia
+18,2024-04-12,South,Clothing,Silk Dress Shirt,727.57,3,42,Maria Davis
+19,2024-02-27,North,Furniture,Bookshelf Modern,1377.46,16,68,Grace Lee
+20,2025-08-02,West,Clothing,Casual Sneakers,109.23,25,80,Karen White
+21,2024-09-03,South,Sports,Yoga Mat Premium,525.8,41,33,Hector Patel
+22,2024-09-18,East,Food & Beverage,Artisan Pasta Set,209.73,11,10,Hector Patel
+23,2024-12-19,Central,Furniture,Sofa Sectional L,2117.39,30,109,Elena Rodriguez
+24,2024-07-22,South,Food & Beverage,Organic Coffee Blend,86.42,37,46,James Anderson
+25,2024-10-29,North,Electronics,Tablet Air M2,1517.51,37,111,Karen White
+26,2024-02-20,Central,Food & Beverage,Artisan Pasta Set,237.21,15,78,Maria Davis
+27,2024-12-26,West,Clothing,Sports Hoodie,237.97,49,93,Maria Davis
+28,2025-11-06,West,Electronics,Laptop Pro X1,1682.88,29,5,James Anderson
+29,2025-01-08,West,Electronics,Smart TV 55in,1768.25,27,23,David Kim
+30,2024-05-15,Central,Furniture,Dining Table Set,1580.12,18,107,Carol Chen
+31,2024-09-20,South,Furniture,Bookshelf Modern,2442.06,30,10,Carol Chen
+32,2024-08-19,South,Sports,Resistance Band Set,253.38,26,2,Elena Rodriguez
+33,2025-07-03,East,Food & Beverage,Artisan Pasta Set,208.39,44,34,James Anderson
+34,2025-01-25,North,Electronics,Wireless Earbuds Z3,2463.09,40,114,Irene Thompson
+35,2024-12-01,Central,Clothing,Premium Jacket,526.55,30,117,Leo Garcia
+36,2024-11-05,South,Electronics,Wireless Earbuds Z3,417.66,3,39,Hector Patel
+37,2024-04-28,East,Clothing,Sports Hoodie,151.75,30,48,Karen White
+38,2025-12-14,Central,Food & Beverage,Gourmet Tea Collection,227.84,10,114,Grace Lee
+39,2025-11-01,East,Food & Beverage,Gourmet Tea Collection,134.27,18,5,Leo Garcia
+40,2025-01-14,West,Food & Beverage,Cold Press Juice 12pk,286.16,24,13,Karen White
+41,2025-01-11,Central,Furniture,Ergonomic Desk Chair,1284.7,13,16,Nathan Brown
+42,2025-04-10,East,Clothing,Sports Hoodie,778.32,4,101,Frank Wilson
+43,2024-09-06,West,Sports,Yoga Mat Premium,211.73,49,71,David Kim
+44,2025-08-23,West,Clothing,Silk Dress Shirt,630.78,39,1,Elena Rodriguez
+45,2024-05-28,West,Sports,Resistance Band Set,1613.15,8,85,Nathan Brown
+46,2024-01-27,West,Electronics,Smart TV 55in,3991.93,16,76,Frank Wilson
+47,2024-01-17,West,Furniture,Ergonomic Desk Chair,511.26,27,68,Bob Martinez
+48,2024-03-06,South,Food & Beverage,Artisan Pasta Set,163.71,7,58,Irene Thompson
+49,2024-08-14,Central,Electronics,Gaming Console S,1647.83,42,4,Alice Johnson
+50,2025-05-05,South,Food & Beverage,Organic Coffee Blend,157.28,29,10,Olivia Clark
+51,2024-03-23,North,Sports,Yoga Mat Premium,206.11,18,80,Karen White
+52,2025-08-22,Central,Furniture,Sofa Sectional L,2984.69,34,38,Hector Patel
+53,2025-06-01,Central,Food & Beverage,Organic Coffee Blend,242.07,8,110,Karen White
+54,2025-10-28,Central,Clothing,Denim Jeans Classic,388.67,15,53,Frank Wilson
+55,2025-04-09,South,Food & Beverage,Organic Coffee Blend,107.51,21,86,Elena Rodriguez
+56,2025-01-18,West,Food & Beverage,Organic Coffee Blend,45.54,6,12,Grace Lee
+57,2024-04-08,North,Clothing,Sports Hoodie,94.99,36,72,Frank Wilson
+58,2025-11-17,East,Food & Beverage,Artisan Pasta Set,264.61,49,55,Nathan Brown
+59,2024-02-22,North,Sports,Resistance Band Set,755.16,37,65,David Kim
+60,2024-06-07,South,Clothing,Premium Jacket,312.59,36,48,Bob Martinez
+61,2024-10-12,Central,Clothing,Denim Jeans Classic,683.87,50,105,James Anderson
+62,2025-09-20,Central,Electronics,Gaming Console S,4659.6,45,35,Alice Johnson
+63,2024-07-03,North,Furniture,Bookshelf Modern,1150.42,12,112,Carol Chen
+64,2025-08-02,South,Electronics,Wireless Earbuds Z3,3756.65,2,12,Leo Garcia
+65,2025-06-27,West,Food & Beverage,Cold Press Juice 12pk,147.02,11,48,Elena Rodriguez
+66,2024-11-28,Central,Sports,Running Shoes Ultra,1776.02,10,21,Maria Davis
+67,2025-09-24,East,Electronics,Smart TV 55in,2326.94,28,63,James Anderson
+68,2025-03-28,South,Furniture,Standing Desk Oak,2301.59,8,45,Grace Lee
+69,2024-04-23,North,Sports,Mountain Bike 27.5,1091.71,20,6,David Kim
+70,2025-02-08,Central,Electronics,Laptop Pro X1,1181.23,14,99,Carol Chen
+71,2024-09-18,North,Furniture,Ergonomic Desk Chair,172.03,48,56,Carol Chen
+72,2024-05-12,South,Sports,Yoga Mat Premium,1040.5,43,104,Frank Wilson
+73,2024-03-14,South,Electronics,Tablet Air M2,289.96,5,111,Frank Wilson
+74,2025-08-12,South,Sports,Mountain Bike 27.5,1442.24,27,38,Bob Martinez
+75,2025-02-18,East,Furniture,Standing Desk Oak,2433.77,40,59,Nathan Brown
+76,2025-12-07,North,Electronics,Tablet Air M2,4253.52,16,56,James Anderson
+77,2025-02-14,Central,Electronics,Tablet Air M2,4378.52,48,44,David Kim
+78,2024-12-07,West,Electronics,Gaming Console S,3239.48,34,66,David Kim
+79,2024-12-23,North,Clothing,Casual Sneakers,127.1,17,26,Carol Chen
+80,2025-09-08,West,Electronics,Wireless Earbuds Z3,4766.2,41,64,Hector Patel
+81,2025-07-31,Central,Food & Beverage,Gourmet Tea Collection,200.04,40,42,Nathan Brown
+82,2025-10-04,North,Clothing,Denim Jeans Classic,101.21,29,81,Elena Rodriguez
+83,2024-10-08,Central,Electronics,Smart TV 55in,2635.22,20,60,Hector Patel
+84,2024-02-08,East,Furniture,Bookshelf Modern,368.68,6,79,James Anderson
+85,2025-06-03,South,Food & Beverage,Gourmet Tea Collection,175.21,48,115,Alice Johnson
+86,2025-04-05,Central,Clothing,Silk Dress Shirt,503.75,33,20,Alice Johnson
+87,2025-04-06,East,Furniture,Ergonomic Desk Chair,1587.96,12,6,David Kim
+88,2025-12-25,South,Food & Beverage,Gourmet Tea Collection,166.37,11,47,Frank Wilson
+89,2024-10-16,South,Food & Beverage,Artisan Pasta Set,210.09,4,102,Karen White
+90,2025-10-24,North,Electronics,Smart TV 55in,653.63,44,50,Elena Rodriguez
+91,2024-09-15,Central,Clothing,Silk Dress Shirt,111.13,43,19,Olivia Clark
+92,2024-12-24,North,Food & Beverage,Protein Bar Pack,186.61,6,40,Irene Thompson
+93,2025-01-20,North,Clothing,Sports Hoodie,120.09,43,55,Irene Thompson
+94,2025-01-05,East,Furniture,Bookshelf Modern,663.75,14,44,Maria Davis
+95,2025-05-12,West,Clothing,Casual Sneakers,166.21,19,109,Maria Davis
+96,2024-04-13,Central,Sports,Swimming Goggles Pro,152.48,22,113,Maria Davis
+97,2025-09-24,West,Sports,Mountain Bike 27.5,376.17,12,107,Leo Garcia
+98,2025-10-01,West,Food & Beverage,Organic Coffee Blend,135.04,44,93,David Kim
+99,2025-03-30,Central,Furniture,Sofa Sectional L,816.91,16,40,Maria Davis
+100,2025-04-25,West,Furniture,Dining Table Set,2955.65,30,99,Elena Rodriguez
+101,2025-01-26,Central,Sports,Mountain Bike 27.5,1935.23,13,103,James Anderson
+102,2024-05-21,North,Electronics,Tablet Air M2,4395.76,36,120,Bob Martinez
+103,2025-12-29,Central,Electronics,Smart TV 55in,602.6,11,35,Hector Patel
+104,2025-06-09,West,Food & Beverage,Organic Coffee Blend,285.0,15,105,Hector Patel
+105,2024-12-23,East,Food & Beverage,Organic Coffee Blend,131.01,24,31,Grace Lee
+106,2024-03-24,North,Clothing,Premium Jacket,289.01,7,108,Leo Garcia
+107,2025-10-27,North,Clothing,Casual Sneakers,78.73,31,90,Nathan Brown
+108,2024-05-22,South,Food & Beverage,Gourmet Tea Collection,21.47,6,3,Elena Rodriguez
+109,2024-08-08,West,Sports,Swimming Goggles Pro,1093.32,8,100,Elena Rodriguez
+110,2024-08-31,North,Electronics,Laptop Pro X1,1344.51,41,102,James Anderson
+111,2025-04-13,East,Electronics,Tablet Air M2,3064.35,2,81,Irene Thompson
+112,2025-08-11,West,Clothing,Silk Dress Shirt,371.93,40,46,David Kim
+113,2025-08-07,South,Clothing,Premium Jacket,442.61,24,9,Irene Thompson
+114,2025-07-11,Central,Sports,Swimming Goggles Pro,119.04,31,6,Karen White
+115,2025-01-31,North,Furniture,Ergonomic Desk Chair,1167.72,5,45,David Kim
+116,2025-11-03,East,Sports,Resistance Band Set,336.15,23,70,Frank Wilson
+117,2025-10-20,West,Food & Beverage,Cold Press Juice 12pk,196.89,9,9,Leo Garcia
+118,2025-04-13,East,Furniture,Standing Desk Oak,274.85,13,114,Alice Johnson
+119,2024-11-19,North,Sports,Mountain Bike 27.5,1979.12,35,61,Elena Rodriguez
+120,2024-02-07,West,Furniture,Bookshelf Modern,2607.09,4,111,Karen White
+121,2024-12-05,North,Electronics,Smart TV 55in,2297.37,26,96,Hector Patel
+122,2025-01-30,North,Clothing,Denim Jeans Classic,569.05,24,119,Maria Davis
+123,2025-06-15,North,Electronics,Tablet Air M2,578.85,39,106,Carol Chen
+124,2025-07-12,North,Furniture,Ergonomic Desk Chair,378.2,43,38,Elena Rodriguez
+125,2025-04-01,Central,Food & Beverage,Protein Bar Pack,213.13,23,58,Alice Johnson
+126,2024-12-27,Central,Food & Beverage,Artisan Pasta Set,199.05,4,10,Karen White
+127,2025-10-14,South,Furniture,Dining Table Set,2433.12,44,21,Alice Johnson
+128,2024-05-26,Central,Food & Beverage,Organic Coffee Blend,55.34,16,100,Karen White
+129,2025-01-10,North,Food & Beverage,Gourmet Tea Collection,29.07,10,87,Hector Patel
+130,2025-01-14,North,Food & Beverage,Organic Coffee Blend,180.7,34,47,Grace Lee
+131,2024-11-17,North,Clothing,Premium Jacket,69.44,12,64,Irene Thompson
+132,2025-01-31,Central,Electronics,Smart TV 55in,3919.83,46,58,David Kim
+133,2025-09-18,North,Food & Beverage,Protein Bar Pack,54.34,5,58,Carol Chen
+134,2025-12-31,South,Electronics,Smart TV 55in,3405.63,46,9,Irene Thompson
+135,2025-07-09,North,Furniture,Standing Desk Oak,2178.66,45,82,Carol Chen
+136,2025-01-05,Central,Clothing,Premium Jacket,788.85,9,31,Maria Davis
+137,2025-05-20,East,Furniture,Dining Table Set,1780.99,30,103,Irene Thompson
+138,2024-05-12,Central,Electronics,Laptop Pro X1,1684.6,46,93,Hector Patel
+139,2025-06-22,South,Food & Beverage,Gourmet Tea Collection,40.65,21,83,Bob Martinez
+140,2025-04-05,South,Sports,Resistance Band Set,326.4,50,71,Karen White
+141,2025-08-24,West,Clothing,Denim Jeans Classic,427.15,4,107,Bob Martinez
+142,2025-06-14,West,Furniture,Standing Desk Oak,611.61,46,29,Frank Wilson
+143,2025-06-15,North,Electronics,Smart TV 55in,1142.25,36,36,Carol Chen
+144,2025-10-02,North,Sports,Swimming Goggles Pro,259.38,42,22,James Anderson
+145,2025-08-17,West,Clothing,Sports Hoodie,590.47,39,44,Nathan Brown
+146,2025-07-31,East,Electronics,Laptop Pro X1,418.22,42,99,James Anderson
+147,2024-09-28,West,Sports,Mountain Bike 27.5,1266.77,2,64,Olivia Clark
+148,2025-10-04,Central,Furniture,Bookshelf Modern,1526.39,44,52,Elena Rodriguez
+149,2025-04-09,East,Electronics,Wireless Earbuds Z3,2310.11,31,60,David Kim
+150,2024-12-14,Central,Clothing,Silk Dress Shirt,696.11,21,94,Nathan Brown
+151,2024-12-19,South,Clothing,Silk Dress Shirt,436.24,7,41,David Kim
+152,2025-04-22,East,Furniture,Sofa Sectional L,856.57,7,7,Elena Rodriguez
+153,2025-01-28,Central,Food & Beverage,Protein Bar Pack,289.55,11,105,Frank Wilson
+154,2025-08-14,North,Clothing,Casual Sneakers,423.7,33,60,Hector Patel
+155,2024-11-11,South,Electronics,Laptop Pro X1,4737.12,33,59,David Kim
+156,2024-08-08,Central,Furniture,Ergonomic Desk Chair,294.04,32,77,Olivia Clark
+157,2025-10-31,South,Furniture,Dining Table Set,173.31,7,56,Carol Chen
+158,2024-09-27,North,Food & Beverage,Artisan Pasta Set,32.67,4,73,Irene Thompson
+159,2024-07-18,North,Sports,Resistance Band Set,221.18,33,58,Maria Davis
+160,2025-07-17,North,Sports,Swimming Goggles Pro,308.12,7,51,Frank Wilson
+161,2024-12-13,Central,Furniture,Standing Desk Oak,717.31,33,52,Irene Thompson
+162,2024-02-11,East,Electronics,Wireless Earbuds Z3,3625.24,31,67,Hector Patel
+163,2024-06-01,Central,Sports,Yoga Mat Premium,709.69,40,41,Carol Chen
+164,2025-02-06,Central,Furniture,Dining Table Set,1108.66,33,69,Hector Patel
+165,2025-12-26,Central,Furniture,Sofa Sectional L,2474.88,24,43,Karen White
+166,2024-04-22,South,Sports,Resistance Band Set,1609.77,47,112,Leo Garcia
+167,2025-10-06,East,Sports,Mountain Bike 27.5,589.82,42,101,Maria Davis
+168,2025-08-15,Central,Clothing,Premium Jacket,487.64,11,68,Karen White
+169,2025-09-26,South,Clothing,Casual Sneakers,73.68,45,15,David Kim
+170,2024-01-20,South,Furniture,Sofa Sectional L,581.58,45,27,Grace Lee
+171,2025-05-28,Central,Food & Beverage,Organic Coffee Blend,217.62,34,27,Irene Thompson
+172,2024-11-28,South,Sports,Mountain Bike 27.5,682.4,12,59,Olivia Clark
+173,2025-06-29,North,Sports,Resistance Band Set,1377.67,47,88,Karen White
+174,2025-12-10,North,Sports,Mountain Bike 27.5,449.15,16,36,Irene Thompson
+175,2024-11-01,West,Furniture,Bookshelf Modern,2158.97,45,91,Hector Patel
+176,2024-11-20,South,Furniture,Dining Table Set,2811.05,47,36,Elena Rodriguez
+177,2024-05-04,Central,Sports,Mountain Bike 27.5,1799.86,26,105,Frank Wilson
+178,2024-05-29,North,Electronics,Smart TV 55in,4785.51,6,45,Olivia Clark
+179,2025-03-28,North,Food & Beverage,Protein Bar Pack,76.58,35,35,Olivia Clark
+180,2025-07-29,North,Clothing,Premium Jacket,511.76,38,31,David Kim
+181,2024-02-21,Central,Clothing,Casual Sneakers,89.37,27,43,Leo Garcia
+182,2025-04-28,East,Clothing,Premium Jacket,773.39,11,53,Karen White
+183,2025-05-02,South,Clothing,Silk Dress Shirt,290.88,42,8,Olivia Clark
+184,2024-04-01,Central,Clothing,Sports Hoodie,604.01,3,117,Olivia Clark
+185,2024-06-28,South,Clothing,Premium Jacket,797.88,26,101,Hector Patel
+186,2024-07-09,North,Electronics,Laptop Pro X1,1632.28,39,14,Olivia Clark
+187,2024-12-09,North,Food & Beverage,Gourmet Tea Collection,166.81,9,109,Irene Thompson
+188,2025-04-24,North,Clothing,Premium Jacket,298.01,47,59,Karen White
+189,2024-09-20,West,Electronics,Smart TV 55in,3995.68,37,87,Maria Davis
+190,2024-07-16,West,Sports,Mountain Bike 27.5,1667.82,33,42,Bob Martinez
+191,2025-02-14,East,Clothing,Casual Sneakers,408.09,16,1,Elena Rodriguez
+192,2025-01-27,West,Food & Beverage,Artisan Pasta Set,287.13,20,75,Leo Garcia
+193,2025-08-09,East,Furniture,Bookshelf Modern,2124.39,4,86,Bob Martinez
+194,2025-04-21,North,Clothing,Denim Jeans Classic,564.56,46,99,Elena Rodriguez
+195,2025-12-07,East,Furniture,Bookshelf Modern,1901.68,15,18,Hector Patel
+196,2024-06-05,South,Sports,Resistance Band Set,878.42,36,117,Hector Patel
+197,2025-07-04,West,Clothing,Sports Hoodie,704.85,6,68,Hector Patel
+198,2025-06-24,North,Electronics,Gaming Console S,738.6,36,116,Irene Thompson
+199,2024-07-26,Central,Sports,Yoga Mat Premium,395.91,34,57,Bob Martinez
+200,2025-11-27,West,Sports,Mountain Bike 27.5,254.61,33,58,Maria Davis
+201,2024-02-26,South,Clothing,Sports Hoodie,361.57,37,8,Irene Thompson
+202,2025-04-18,North,Electronics,Tablet Air M2,1421.39,1,96,David Kim
+203,2025-08-15,East,Electronics,Tablet Air M2,1853.74,5,70,Alice Johnson
+204,2024-03-11,South,Electronics,Smart TV 55in,2162.56,50,18,Maria Davis
+205,2025-10-18,South,Furniture,Sofa Sectional L,1428.33,25,49,Bob Martinez
+206,2025-11-30,Central,Clothing,Silk Dress Shirt,138.97,35,51,Irene Thompson
+207,2024-05-10,West,Electronics,Laptop Pro X1,4896.76,30,87,Leo Garcia
+208,2025-07-11,South,Sports,Mountain Bike 27.5,1660.85,16,59,Frank Wilson
+209,2024-06-07,North,Clothing,Premium Jacket,74.16,43,54,James Anderson
+210,2024-01-17,West,Clothing,Premium Jacket,125.67,3,58,James Anderson
+211,2025-11-19,East,Clothing,Premium Jacket,351.7,15,70,David Kim
+212,2024-02-27,West,Sports,Resistance Band Set,529.59,47,74,Frank Wilson
+213,2025-08-14,Central,Furniture,Standing Desk Oak,1010.03,10,85,Irene Thompson
+214,2024-08-14,South,Furniture,Bookshelf Modern,323.73,38,113,Leo Garcia
+215,2024-06-28,South,Sports,Mountain Bike 27.5,170.02,23,83,Karen White
+216,2025-01-25,Central,Furniture,Sofa Sectional L,1313.54,20,49,Carol Chen
+217,2025-07-04,South,Clothing,Casual Sneakers,275.55,46,19,Maria Davis
+218,2025-04-19,East,Sports,Mountain Bike 27.5,1938.15,36,68,Carol Chen
+219,2025-02-01,West,Furniture,Standing Desk Oak,1091.25,6,119,Hector Patel
+220,2025-01-14,East,Sports,Yoga Mat Premium,178.95,25,87,James Anderson
+221,2025-09-09,East,Electronics,Wireless Earbuds Z3,4062.32,38,93,Karen White
+222,2025-07-26,West,Food & Beverage,Protein Bar Pack,263.45,22,39,Olivia Clark
+223,2024-01-16,West,Clothing,Premium Jacket,610.16,49,62,Olivia Clark
+224,2024-09-05,Central,Clothing,Denim Jeans Classic,736.34,36,42,Maria Davis
+225,2024-10-16,South,Food & Beverage,Gourmet Tea Collection,201.64,20,34,Frank Wilson
+226,2025-06-09,South,Food & Beverage,Organic Coffee Blend,244.79,47,61,Maria Davis
+227,2024-11-23,West,Furniture,Bookshelf Modern,1329.7,37,111,David Kim
+228,2024-05-29,East,Furniture,Dining Table Set,2814.06,38,93,Grace Lee
+229,2024-10-29,West,Clothing,Silk Dress Shirt,222.51,37,107,David Kim
+230,2025-05-26,Central,Furniture,Bookshelf Modern,2325.58,32,93,Karen White
+231,2025-05-17,South,Clothing,Silk Dress Shirt,176.95,47,70,Hector Patel
+232,2024-07-07,Central,Electronics,Gaming Console S,362.35,5,105,Karen White
+233,2024-02-19,East,Food & Beverage,Protein Bar Pack,255.91,15,9,Leo Garcia
+234,2024-06-03,East,Clothing,Sports Hoodie,392.01,4,80,Karen White
+235,2025-11-13,Central,Food & Beverage,Cold Press Juice 12pk,24.4,35,71,Grace Lee
+236,2024-01-13,East,Sports,Resistance Band Set,1108.62,19,3,Irene Thompson
+237,2025-12-15,South,Clothing,Premium Jacket,738.54,34,20,David Kim
+238,2024-07-15,Central,Sports,Resistance Band Set,1645.21,18,102,Grace Lee
+239,2024-03-21,North,Food & Beverage,Cold Press Juice 12pk,178.2,45,29,Elena Rodriguez
+240,2025-12-01,East,Electronics,Laptop Pro X1,2145.34,25,71,Hector Patel
+241,2024-02-27,East,Clothing,Premium Jacket,424.89,28,83,Maria Davis
+242,2024-12-05,Central,Electronics,Gaming Console S,4611.93,15,28,Olivia Clark
+243,2025-12-09,Central,Food & Beverage,Artisan Pasta Set,33.04,5,88,Olivia Clark
+244,2024-10-14,Central,Sports,Running Shoes Ultra,424.36,21,3,David Kim
+245,2025-08-24,West,Food & Beverage,Organic Coffee Blend,103.8,37,31,James Anderson
+246,2025-02-02,Central,Furniture,Sofa Sectional L,2303.49,9,102,Leo Garcia
+247,2024-03-21,Central,Furniture,Ergonomic Desk Chair,428.4,15,108,Bob Martinez
+248,2024-12-14,Central,Sports,Swimming Goggles Pro,841.67,50,42,Alice Johnson
+249,2025-10-11,North,Food & Beverage,Cold Press Juice 12pk,83.88,36,49,Grace Lee
+250,2024-07-09,Central,Food & Beverage,Organic Coffee Blend,236.21,19,103,David Kim
+251,2025-12-31,East,Electronics,Smart TV 55in,940.26,46,101,Karen White
+252,2024-06-06,South,Furniture,Bookshelf Modern,453.67,1,40,Hector Patel
+253,2025-01-03,North,Electronics,Wireless Earbuds Z3,619.03,28,58,Irene Thompson
+254,2025-07-22,Central,Food & Beverage,Organic Coffee Blend,27.35,23,71,Bob Martinez
+255,2025-09-03,Central,Furniture,Sofa Sectional L,185.17,27,50,Maria Davis
+256,2024-03-27,Central,Clothing,Sports Hoodie,440.83,44,49,Carol Chen
+257,2024-05-22,North,Furniture,Bookshelf Modern,1555.4,5,22,Grace Lee
+258,2024-10-09,South,Furniture,Sofa Sectional L,2380.6,24,33,David Kim
+259,2025-10-02,South,Sports,Swimming Goggles Pro,455.45,7,18,Elena Rodriguez
+260,2024-01-07,South,Furniture,Dining Table Set,1232.69,22,57,Frank Wilson
+261,2025-03-16,Central,Clothing,Silk Dress Shirt,290.5,45,26,Hector Patel
+262,2024-11-17,West,Food & Beverage,Artisan Pasta Set,101.61,45,82,Hector Patel
+263,2025-08-12,West,Furniture,Sofa Sectional L,948.86,26,47,Bob Martinez
+264,2025-07-31,West,Sports,Swimming Goggles Pro,425.46,50,71,Alice Johnson
+265,2025-04-17,West,Food & Beverage,Artisan Pasta Set,252.76,5,105,Nathan Brown
+266,2025-02-22,South,Clothing,Silk Dress Shirt,231.52,43,20,Leo Garcia
+267,2025-03-09,South,Electronics,Tablet Air M2,4955.36,31,75,Grace Lee
+268,2025-07-01,Central,Food & Beverage,Gourmet Tea Collection,30.29,24,90,Olivia Clark
+269,2025-07-03,Central,Electronics,Laptop Pro X1,3890.98,43,86,Frank Wilson
+270,2024-06-19,Central,Electronics,Gaming Console S,4921.32,44,83,Grace Lee
+271,2024-12-05,South,Electronics,Laptop Pro X1,673.31,15,66,Leo Garcia
+272,2025-06-15,Central,Sports,Swimming Goggles Pro,504.38,24,51,Hector Patel
+273,2025-11-26,Central,Sports,Yoga Mat Premium,742.34,2,62,Bob Martinez
+274,2024-10-29,South,Electronics,Laptop Pro X1,4190.33,47,19,Frank Wilson
+275,2024-11-15,North,Food & Beverage,Protein Bar Pack,165.91,23,61,Bob Martinez
+276,2025-03-24,South,Furniture,Ergonomic Desk Chair,1005.75,46,15,Alice Johnson
+277,2024-12-17,East,Clothing,Casual Sneakers,437.0,36,21,Frank Wilson
+278,2025-07-27,South,Food & Beverage,Protein Bar Pack,243.37,41,24,Carol Chen
+279,2025-10-17,South,Food & Beverage,Organic Coffee Blend,226.47,13,58,James Anderson
+280,2025-03-15,South,Electronics,Wireless Earbuds Z3,1187.77,49,91,Maria Davis
+281,2024-03-05,Central,Electronics,Gaming Console S,1097.41,21,26,Hector Patel
+282,2024-04-26,North,Food & Beverage,Gourmet Tea Collection,290.46,21,77,Grace Lee
+283,2025-09-17,South,Sports,Running Shoes Ultra,748.02,30,80,Carol Chen
+284,2025-11-20,North,Sports,Swimming Goggles Pro,242.72,9,41,Bob Martinez
+285,2024-09-01,North,Electronics,Wireless Earbuds Z3,1991.87,10,66,Grace Lee
+286,2025-03-04,Central,Clothing,Sports Hoodie,337.78,12,63,Karen White
+287,2025-07-04,West,Sports,Yoga Mat Premium,1020.11,9,24,Frank Wilson
+288,2025-04-06,Central,Electronics,Smart TV 55in,4768.84,32,18,David Kim
+289,2025-01-28,Central,Sports,Mountain Bike 27.5,865.54,32,54,Leo Garcia
+290,2025-03-30,South,Clothing,Premium Jacket,474.05,49,29,Elena Rodriguez
+291,2024-02-03,North,Clothing,Sports Hoodie,266.5,50,59,James Anderson
+292,2025-05-22,Central,Sports,Running Shoes Ultra,1179.61,18,100,Irene Thompson
+293,2025-01-10,Central,Electronics,Tablet Air M2,2822.5,28,14,Leo Garcia
+294,2025-10-31,West,Furniture,Ergonomic Desk Chair,1431.74,23,111,Nathan Brown
+295,2024-03-30,South,Electronics,Wireless Earbuds Z3,1207.42,48,76,Leo Garcia
+296,2024-12-25,Central,Food & Beverage,Protein Bar Pack,192.52,14,105,David Kim
+297,2024-03-01,Central,Furniture,Dining Table Set,951.09,35,22,Frank Wilson
+298,2025-12-21,North,Furniture,Dining Table Set,911.93,33,116,Karen White
+299,2024-04-07,West,Food & Beverage,Organic Coffee Blend,297.9,42,17,Leo Garcia
+300,2024-05-15,West,Clothing,Silk Dress Shirt,671.36,49,108,Karen White
+301,2025-02-06,South,Clothing,Sports Hoodie,524.3,41,54,Grace Lee
+302,2025-04-07,East,Electronics,Tablet Air M2,2674.94,18,89,Olivia Clark
+303,2025-01-12,South,Food & Beverage,Artisan Pasta Set,182.95,50,109,Leo Garcia
+304,2024-04-05,South,Furniture,Ergonomic Desk Chair,2417.68,26,28,Grace Lee
+305,2024-08-04,South,Furniture,Bookshelf Modern,2510.78,22,71,James Anderson
+306,2024-05-13,Central,Food & Beverage,Artisan Pasta Set,270.36,49,7,Alice Johnson
+307,2024-04-11,South,Electronics,Laptop Pro X1,4661.28,11,57,Hector Patel
+308,2024-01-01,South,Clothing,Casual Sneakers,711.61,20,21,Nathan Brown
+309,2024-10-07,East,Furniture,Bookshelf Modern,384.9,43,116,Karen White
+310,2024-06-18,East,Food & Beverage,Artisan Pasta Set,223.28,49,30,Grace Lee
+311,2025-11-02,East,Electronics,Laptop Pro X1,1224.42,5,17,James Anderson
+312,2024-08-19,Central,Food & Beverage,Organic Coffee Blend,22.26,22,105,Bob Martinez
+313,2025-03-08,West,Food & Beverage,Organic Coffee Blend,84.11,6,94,Maria Davis
+314,2024-04-14,East,Furniture,Bookshelf Modern,2660.82,9,49,Maria Davis
+315,2024-05-16,West,Electronics,Gaming Console S,2903.8,40,84,Carol Chen
+316,2025-03-26,North,Clothing,Casual Sneakers,739.92,40,88,Hector Patel
+317,2024-08-10,East,Electronics,Wireless Earbuds Z3,3811.74,38,94,Grace Lee
+318,2024-12-25,South,Furniture,Standing Desk Oak,856.19,42,11,David Kim
+319,2025-07-20,Central,Sports,Swimming Goggles Pro,627.05,45,4,Nathan Brown
+320,2025-11-05,North,Clothing,Sports Hoodie,505.2,13,96,Grace Lee
+321,2024-10-29,East,Clothing,Denim Jeans Classic,339.41,16,64,Karen White
+322,2025-08-31,East,Sports,Running Shoes Ultra,1974.81,21,17,Grace Lee
+323,2025-08-05,South,Furniture,Dining Table Set,2096.38,49,61,Maria Davis
+324,2024-03-15,East,Sports,Running Shoes Ultra,106.48,14,6,Olivia Clark
+325,2024-03-02,South,Sports,Resistance Band Set,1286.86,33,99,Grace Lee
+326,2025-03-09,South,Electronics,Gaming Console S,2780.75,10,36,Bob Martinez
+327,2024-11-13,East,Sports,Yoga Mat Premium,1950.68,10,69,Frank Wilson
+328,2025-02-04,Central,Electronics,Smart TV 55in,3553.64,47,109,David Kim
+329,2024-02-29,West,Electronics,Tablet Air M2,756.74,40,78,Alice Johnson
+330,2024-11-12,West,Electronics,Laptop Pro X1,3597.92,45,2,Carol Chen
+331,2025-05-23,North,Sports,Swimming Goggles Pro,1583.34,47,34,Carol Chen
+332,2025-01-15,West,Furniture,Ergonomic Desk Chair,2348.58,2,43,Maria Davis
+333,2025-03-15,North,Sports,Running Shoes Ultra,584.86,37,81,Bob Martinez
+334,2025-05-23,South,Sports,Resistance Band Set,186.44,37,22,Frank Wilson
+335,2024-06-10,North,Electronics,Gaming Console S,3435.78,8,30,Leo Garcia
+336,2025-06-05,East,Electronics,Laptop Pro X1,1373.85,31,47,Grace Lee
+337,2024-06-02,West,Electronics,Gaming Console S,4054.95,46,95,Karen White
+338,2025-03-05,West,Furniture,Standing Desk Oak,1336.33,47,41,Elena Rodriguez
+339,2024-03-20,Central,Furniture,Ergonomic Desk Chair,1580.82,4,23,David Kim
+340,2025-06-12,East,Food & Beverage,Organic Coffee Blend,265.56,19,100,Nathan Brown
+341,2024-11-14,North,Electronics,Gaming Console S,2392.38,24,26,Elena Rodriguez
+342,2025-07-31,North,Sports,Yoga Mat Premium,970.74,38,64,Maria Davis
+343,2024-07-19,Central,Clothing,Casual Sneakers,54.78,27,4,David Kim
+344,2025-07-08,North,Electronics,Smart TV 55in,207.02,43,49,Nathan Brown
+345,2024-11-10,East,Clothing,Sports Hoodie,787.34,27,63,Alice Johnson
+346,2024-05-25,North,Electronics,Laptop Pro X1,4622.12,34,53,Leo Garcia
+347,2025-01-16,South,Electronics,Gaming Console S,658.77,9,82,Nathan Brown
+348,2025-02-07,East,Sports,Swimming Goggles Pro,199.58,43,17,David Kim
+349,2024-10-25,North,Furniture,Sofa Sectional L,2147.07,48,42,Frank Wilson
+350,2025-04-08,North,Clothing,Premium Jacket,757.67,9,100,Maria Davis
+351,2025-08-21,East,Clothing,Premium Jacket,173.28,30,41,Grace Lee
+352,2024-05-03,Central,Furniture,Standing Desk Oak,1437.96,30,34,Nathan Brown
+353,2024-05-02,East,Clothing,Silk Dress Shirt,669.79,45,78,Alice Johnson
+354,2024-08-08,North,Clothing,Premium Jacket,583.37,23,51,Irene Thompson
+355,2024-02-20,North,Furniture,Standing Desk Oak,238.58,26,110,Hector Patel
+356,2025-07-23,Central,Clothing,Premium Jacket,396.53,9,16,Alice Johnson
+357,2024-03-04,West,Clothing,Casual Sneakers,667.76,24,88,Karen White
+358,2025-10-22,East,Sports,Swimming Goggles Pro,576.94,5,3,Bob Martinez
+359,2024-07-21,South,Clothing,Premium Jacket,728.81,22,16,Alice Johnson
+360,2025-04-17,East,Clothing,Sports Hoodie,374.87,47,51,Hector Patel
+361,2024-01-31,South,Food & Beverage,Protein Bar Pack,119.1,12,36,Elena Rodriguez
+362,2025-04-01,West,Electronics,Gaming Console S,3172.05,16,83,Elena Rodriguez
+363,2025-05-25,South,Sports,Mountain Bike 27.5,197.08,18,50,Carol Chen
+364,2025-03-05,West,Sports,Yoga Mat Premium,1291.05,35,102,Alice Johnson
+365,2025-01-26,North,Food & Beverage,Gourmet Tea Collection,238.8,23,117,James Anderson
+366,2025-05-29,North,Food & Beverage,Artisan Pasta Set,70.35,21,77,David Kim
+367,2024-01-31,North,Electronics,Tablet Air M2,2741.28,50,75,David Kim
+368,2024-06-12,East,Clothing,Casual Sneakers,249.9,48,8,Maria Davis
+369,2024-08-12,Central,Food & Beverage,Artisan Pasta Set,281.86,12,23,David Kim
+370,2025-08-29,North,Furniture,Dining Table Set,230.39,45,46,James Anderson
+371,2025-07-31,West,Sports,Yoga Mat Premium,1686.46,32,70,Elena Rodriguez
+372,2024-06-28,South,Electronics,Laptop Pro X1,469.61,39,29,Alice Johnson
+373,2025-06-23,South,Electronics,Smart TV 55in,4605.9,13,104,Carol Chen
+374,2024-12-14,West,Furniture,Ergonomic Desk Chair,212.45,38,91,Olivia Clark
+375,2024-05-25,East,Sports,Resistance Band Set,1924.27,24,91,Karen White
+376,2025-02-09,Central,Electronics,Smart TV 55in,1648.47,9,21,Leo Garcia
+377,2025-03-23,South,Furniture,Standing Desk Oak,2165.47,36,89,Olivia Clark
+378,2025-09-20,North,Clothing,Sports Hoodie,660.84,25,40,Leo Garcia
+379,2025-12-06,North,Clothing,Casual Sneakers,596.62,45,74,Grace Lee
+380,2025-08-04,East,Clothing,Sports Hoodie,288.66,40,29,Karen White
+381,2025-08-02,East,Food & Beverage,Protein Bar Pack,112.73,5,31,Frank Wilson
+382,2024-11-23,West,Electronics,Smart TV 55in,2343.82,17,27,David Kim
+383,2025-12-10,East,Furniture,Bookshelf Modern,2393.01,47,1,Alice Johnson
+384,2025-01-30,South,Food & Beverage,Protein Bar Pack,267.67,32,113,Grace Lee
+385,2024-12-25,Central,Food & Beverage,Organic Coffee Blend,252.07,37,84,Maria Davis
+386,2025-12-04,West,Clothing,Denim Jeans Classic,105.28,3,38,Alice Johnson
+387,2024-11-22,North,Electronics,Laptop Pro X1,1840.68,25,21,Leo Garcia
+388,2024-03-17,Central,Electronics,Smart TV 55in,3051.35,40,115,Hector Patel
+389,2025-12-22,East,Food & Beverage,Protein Bar Pack,190.05,28,21,Alice Johnson
+390,2024-04-13,North,Clothing,Casual Sneakers,356.96,36,93,Olivia Clark
+391,2025-07-07,North,Furniture,Bookshelf Modern,827.01,4,51,James Anderson
+392,2025-07-16,South,Clothing,Premium Jacket,320.62,28,12,Elena Rodriguez
+393,2025-11-08,Central,Food & Beverage,Protein Bar Pack,47.16,14,22,Karen White
+394,2024-10-25,East,Food & Beverage,Organic Coffee Blend,106.34,26,61,Hector Patel
+395,2025-11-07,North,Electronics,Gaming Console S,2060.13,24,114,Grace Lee
+396,2025-01-13,West,Food & Beverage,Organic Coffee Blend,93.72,30,34,David Kim
+397,2024-10-02,Central,Electronics,Wireless Earbuds Z3,3810.73,43,13,Bob Martinez
+398,2025-11-15,North,Sports,Mountain Bike 27.5,1943.75,38,30,Irene Thompson
+399,2024-03-03,South,Sports,Mountain Bike 27.5,1934.01,44,111,Olivia Clark
+400,2025-05-01,Central,Clothing,Denim Jeans Classic,274.14,26,116,Nathan Brown
+401,2024-02-05,Central,Sports,Swimming Goggles Pro,1616.86,44,80,Carol Chen
+402,2024-05-03,South,Clothing,Casual Sneakers,779.12,13,17,Alice Johnson
+403,2025-03-09,East,Food & Beverage,Protein Bar Pack,299.24,41,19,Nathan Brown
+404,2025-09-01,North,Furniture,Ergonomic Desk Chair,398.03,36,51,Irene Thompson
+405,2024-11-29,North,Sports,Mountain Bike 27.5,1840.95,1,101,Leo Garcia
+406,2025-09-30,Central,Sports,Mountain Bike 27.5,296.04,10,19,James Anderson
+407,2025-08-25,Central,Electronics,Laptop Pro X1,2900.88,7,101,Elena Rodriguez
+408,2025-07-02,North,Food & Beverage,Artisan Pasta Set,127.25,32,74,James Anderson
+409,2025-04-29,East,Clothing,Silk Dress Shirt,352.23,40,78,Karen White
+410,2025-12-11,South,Electronics,Tablet Air M2,4469.96,22,89,David Kim
+411,2024-02-20,South,Furniture,Bookshelf Modern,207.66,20,40,Elena Rodriguez
+412,2025-05-18,East,Clothing,Casual Sneakers,275.36,48,57,Maria Davis
+413,2024-11-24,North,Food & Beverage,Gourmet Tea Collection,200.76,13,57,David Kim
+414,2025-02-20,South,Sports,Resistance Band Set,1656.35,33,102,Carol Chen
+415,2024-03-08,North,Sports,Mountain Bike 27.5,340.45,34,113,James Anderson
+416,2024-01-30,West,Clothing,Casual Sneakers,677.73,16,5,Hector Patel
+417,2024-02-21,North,Clothing,Silk Dress Shirt,326.26,30,65,Grace Lee
+418,2025-10-12,East,Electronics,Wireless Earbuds Z3,1987.84,39,58,Carol Chen
+419,2025-04-30,Central,Sports,Resistance Band Set,740.96,17,96,Nathan Brown
+420,2025-12-06,East,Furniture,Ergonomic Desk Chair,1251.71,11,110,James Anderson
+421,2024-08-07,West,Clothing,Casual Sneakers,251.81,27,66,Alice Johnson
+422,2025-11-29,East,Food & Beverage,Protein Bar Pack,201.26,39,103,Alice Johnson
+423,2024-08-17,North,Sports,Resistance Band Set,1448.46,46,83,Elena Rodriguez
+424,2025-03-09,South,Furniture,Sofa Sectional L,868.2,30,39,Karen White
+425,2025-06-17,Central,Food & Beverage,Gourmet Tea Collection,48.65,33,85,Nathan Brown
+426,2025-01-18,Central,Sports,Swimming Goggles Pro,622.74,44,14,Hector Patel
+427,2024-03-06,North,Furniture,Bookshelf Modern,2605.25,17,84,Leo Garcia
+428,2025-10-29,North,Clothing,Casual Sneakers,437.97,16,116,Alice Johnson
+429,2025-09-06,South,Furniture,Standing Desk Oak,2205.66,42,64,Elena Rodriguez
+430,2024-09-22,South,Food & Beverage,Cold Press Juice 12pk,226.28,38,91,James Anderson
+431,2024-07-13,North,Clothing,Sports Hoodie,528.74,31,117,Karen White
+432,2025-01-02,Central,Furniture,Standing Desk Oak,2545.82,36,24,Elena Rodriguez
+433,2024-04-09,South,Clothing,Silk Dress Shirt,593.89,36,98,Olivia Clark
+434,2024-07-06,North,Electronics,Wireless Earbuds Z3,1905.36,48,112,Elena Rodriguez
+435,2025-03-06,North,Furniture,Bookshelf Modern,1818.88,30,109,Bob Martinez
+436,2025-04-26,East,Sports,Swimming Goggles Pro,1893.06,5,61,Olivia Clark
+437,2024-07-18,Central,Electronics,Tablet Air M2,2743.22,27,7,Nathan Brown
+438,2024-06-03,West,Clothing,Silk Dress Shirt,356.89,37,115,Olivia Clark
+439,2025-04-13,West,Furniture,Standing Desk Oak,2369.98,32,43,Karen White
+440,2024-06-30,North,Electronics,Laptop Pro X1,2369.86,14,98,Maria Davis
+441,2024-06-21,Central,Clothing,Denim Jeans Classic,638.91,50,12,Carol Chen
+442,2025-09-21,South,Food & Beverage,Cold Press Juice 12pk,140.13,31,50,Alice Johnson
+443,2024-02-08,Central,Clothing,Silk Dress Shirt,762.55,21,97,Nathan Brown
+444,2025-06-27,West,Electronics,Laptop Pro X1,3208.1,16,29,Leo Garcia
+445,2024-12-18,North,Clothing,Premium Jacket,337.66,38,40,Carol Chen
+446,2024-03-07,East,Furniture,Bookshelf Modern,1449.39,34,77,Irene Thompson
+447,2024-12-11,South,Clothing,Silk Dress Shirt,797.1,32,46,Maria Davis
+448,2024-07-11,West,Food & Beverage,Organic Coffee Blend,83.96,47,17,David Kim
+449,2024-01-23,Central,Sports,Yoga Mat Premium,316.47,46,84,Maria Davis
+450,2024-02-08,South,Furniture,Dining Table Set,1925.93,39,7,Karen White
+451,2024-04-20,East,Electronics,Laptop Pro X1,2200.52,25,16,Irene Thompson
+452,2024-09-15,South,Clothing,Casual Sneakers,571.39,41,2,Elena Rodriguez
+453,2025-03-06,East,Sports,Resistance Band Set,1275.77,45,18,Grace Lee
+454,2024-04-17,Central,Sports,Running Shoes Ultra,622.8,7,64,David Kim
+455,2025-09-15,West,Furniture,Dining Table Set,2923.39,23,91,Grace Lee
+456,2024-10-29,West,Electronics,Gaming Console S,2582.5,14,89,Olivia Clark
+457,2025-05-07,North,Clothing,Premium Jacket,59.56,6,117,Bob Martinez
+458,2025-08-10,South,Clothing,Premium Jacket,634.64,5,93,Leo Garcia
+459,2024-04-13,North,Clothing,Denim Jeans Classic,791.5,19,34,Hector Patel
+460,2024-02-21,East,Clothing,Premium Jacket,689.19,24,103,Karen White
+461,2024-11-16,South,Electronics,Laptop Pro X1,4285.98,3,2,Nathan Brown
+462,2024-05-21,West,Furniture,Bookshelf Modern,2699.4,40,35,Olivia Clark
+463,2024-04-05,North,Furniture,Standing Desk Oak,474.42,26,59,Elena Rodriguez
+464,2025-01-29,South,Food & Beverage,Protein Bar Pack,51.66,45,93,Alice Johnson
+465,2024-06-12,East,Food & Beverage,Gourmet Tea Collection,155.15,37,87,Hector Patel
+466,2024-07-04,Central,Food & Beverage,Artisan Pasta Set,191.18,44,113,Nathan Brown
+467,2024-05-13,South,Food & Beverage,Organic Coffee Blend,268.53,29,6,Bob Martinez
+468,2024-09-24,North,Electronics,Gaming Console S,3884.14,37,93,James Anderson
+469,2024-08-17,North,Sports,Swimming Goggles Pro,1401.42,40,13,Grace Lee
+470,2025-11-08,West,Food & Beverage,Artisan Pasta Set,205.84,42,50,Carol Chen
+471,2025-07-25,Central,Electronics,Laptop Pro X1,3288.31,11,65,Nathan Brown
+472,2025-04-25,South,Clothing,Premium Jacket,613.57,21,31,Frank Wilson
+473,2024-10-11,East,Sports,Yoga Mat Premium,1136.95,25,52,Nathan Brown
+474,2024-08-28,East,Food & Beverage,Cold Press Juice 12pk,244.35,29,12,Nathan Brown
+475,2025-05-25,South,Furniture,Ergonomic Desk Chair,2944.91,48,84,Alice Johnson
+476,2024-04-15,South,Food & Beverage,Organic Coffee Blend,176.0,1,106,Bob Martinez
+477,2025-09-10,Central,Furniture,Dining Table Set,1752.65,42,86,Hector Patel
+478,2024-12-15,North,Electronics,Wireless Earbuds Z3,4252.72,22,72,Maria Davis
+479,2025-09-26,Central,Food & Beverage,Artisan Pasta Set,220.46,8,13,Maria Davis
+480,2025-11-05,West,Electronics,Smart TV 55in,1904.67,41,103,Elena Rodriguez
+481,2025-07-14,Central,Furniture,Ergonomic Desk Chair,280.47,11,64,Carol Chen
+482,2025-02-23,East,Furniture,Dining Table Set,708.38,8,120,Nathan Brown
+483,2025-02-06,West,Food & Beverage,Protein Bar Pack,220.7,7,97,Grace Lee
+484,2024-02-17,Central,Electronics,Tablet Air M2,2395.46,38,65,Carol Chen
+485,2025-05-25,East,Sports,Running Shoes Ultra,1142.19,28,108,James Anderson
+486,2025-05-09,Central,Clothing,Sports Hoodie,180.24,9,14,Grace Lee
+487,2025-11-04,Central,Sports,Resistance Band Set,1047.89,25,54,James Anderson
+488,2025-12-10,West,Furniture,Sofa Sectional L,2896.24,19,58,Maria Davis
+489,2024-05-16,West,Food & Beverage,Gourmet Tea Collection,216.0,48,66,Elena Rodriguez
+490,2025-12-19,Central,Furniture,Dining Table Set,1952.86,13,27,James Anderson
+491,2024-10-24,North,Clothing,Casual Sneakers,427.92,45,82,Frank Wilson
+492,2025-12-28,East,Furniture,Dining Table Set,1519.05,37,86,Leo Garcia
+493,2025-03-03,Central,Furniture,Sofa Sectional L,2453.67,34,14,Alice Johnson
+494,2025-01-25,West,Electronics,Laptop Pro X1,1159.53,49,101,Carol Chen
+495,2024-10-20,North,Clothing,Premium Jacket,567.95,19,27,Maria Davis
+496,2025-07-08,East,Furniture,Sofa Sectional L,442.07,44,95,Irene Thompson
+497,2024-08-17,Central,Food & Beverage,Protein Bar Pack,163.06,45,37,Leo Garcia
+498,2025-11-11,East,Food & Beverage,Cold Press Juice 12pk,136.64,44,41,Irene Thompson
+499,2024-02-25,East,Furniture,Standing Desk Oak,1918.6,50,111,Nathan Brown
+500,2025-03-29,West,Furniture,Dining Table Set,1707.85,39,26,Maria Davis
+501,2024-07-17,North,Food & Beverage,Protein Bar Pack,295.37,5,24,Carol Chen
+502,2025-06-10,East,Food & Beverage,Organic Coffee Blend,139.98,36,34,Carol Chen
+503,2024-06-13,Central,Furniture,Ergonomic Desk Chair,1092.1,46,120,Carol Chen
+504,2024-02-10,West,Furniture,Dining Table Set,294.94,41,79,Nathan Brown
+505,2025-11-08,North,Food & Beverage,Gourmet Tea Collection,174.04,5,101,Leo Garcia
+506,2024-11-21,Central,Clothing,Casual Sneakers,440.45,33,21,Grace Lee
+507,2025-07-10,Central,Food & Beverage,Organic Coffee Blend,117.83,14,85,Frank Wilson
+508,2024-12-05,North,Furniture,Standing Desk Oak,2858.38,40,68,Hector Patel
+509,2025-07-28,East,Electronics,Smart TV 55in,2339.2,42,79,Olivia Clark
+510,2025-09-28,West,Electronics,Smart TV 55in,2030.59,8,50,Elena Rodriguez
+511,2025-07-07,North,Electronics,Gaming Console S,4146.12,24,66,Maria Davis
+512,2025-06-04,South,Food & Beverage,Organic Coffee Blend,103.0,42,25,Frank Wilson
+513,2025-06-10,East,Electronics,Wireless Earbuds Z3,4863.82,50,69,Irene Thompson
+514,2024-01-08,East,Clothing,Casual Sneakers,698.71,28,107,Bob Martinez
+515,2024-07-29,Central,Food & Beverage,Organic Coffee Blend,229.13,10,4,Hector Patel
+516,2024-12-05,East,Electronics,Laptop Pro X1,460.49,17,72,Bob Martinez
+517,2025-08-11,West,Furniture,Sofa Sectional L,1255.89,41,52,Grace Lee
+518,2024-11-19,East,Food & Beverage,Organic Coffee Blend,169.75,42,93,James Anderson
+519,2024-03-05,Central,Electronics,Laptop Pro X1,1916.96,33,14,Elena Rodriguez
+520,2025-12-03,North,Sports,Running Shoes Ultra,620.51,29,49,Grace Lee
+521,2025-11-07,East,Food & Beverage,Protein Bar Pack,169.37,9,96,Grace Lee
+522,2025-07-12,North,Clothing,Silk Dress Shirt,557.97,47,83,Frank Wilson
+523,2024-01-12,Central,Sports,Yoga Mat Premium,316.61,1,74,James Anderson
+524,2025-02-07,Central,Sports,Running Shoes Ultra,665.01,48,95,Olivia Clark
+525,2024-12-18,West,Food & Beverage,Gourmet Tea Collection,59.89,12,29,James Anderson
+526,2024-09-15,West,Electronics,Wireless Earbuds Z3,3420.69,37,110,Alice Johnson
+527,2025-07-16,South,Sports,Running Shoes Ultra,638.05,5,33,Bob Martinez
+528,2024-07-21,Central,Food & Beverage,Artisan Pasta Set,120.0,43,84,David Kim
+529,2024-04-12,North,Sports,Running Shoes Ultra,1808.23,21,63,Hector Patel
+530,2024-12-02,Central,Furniture,Dining Table Set,584.33,37,47,Maria Davis
+531,2024-11-19,South,Clothing,Premium Jacket,284.91,15,92,Leo Garcia
+532,2025-10-18,South,Furniture,Bookshelf Modern,532.77,47,43,Olivia Clark
+533,2025-05-06,South,Food & Beverage,Artisan Pasta Set,236.93,32,71,Bob Martinez
+534,2024-06-28,Central,Electronics,Smart TV 55in,4321.83,9,115,Irene Thompson
+535,2024-07-20,North,Electronics,Laptop Pro X1,4482.1,33,81,Alice Johnson
+536,2025-08-18,Central,Food & Beverage,Gourmet Tea Collection,79.57,3,71,Elena Rodriguez
+537,2025-07-10,Central,Food & Beverage,Protein Bar Pack,122.43,15,115,Maria Davis
+538,2025-08-26,North,Clothing,Denim Jeans Classic,425.84,6,51,Frank Wilson
+539,2025-05-29,East,Clothing,Sports Hoodie,563.12,49,66,Carol Chen
+540,2025-04-01,West,Clothing,Sports Hoodie,761.53,43,112,Carol Chen
+541,2025-05-10,North,Electronics,Wireless Earbuds Z3,3855.07,15,9,Elena Rodriguez
+542,2025-01-13,West,Electronics,Wireless Earbuds Z3,2685.85,24,50,Hector Patel
+543,2025-04-10,East,Electronics,Smart TV 55in,695.48,34,82,Nathan Brown
+544,2024-10-07,North,Sports,Swimming Goggles Pro,1174.71,25,84,Grace Lee
+545,2025-01-09,Central,Electronics,Gaming Console S,1407.61,15,67,Grace Lee
+546,2024-12-27,North,Food & Beverage,Cold Press Juice 12pk,268.41,1,65,Olivia Clark
+547,2024-05-22,South,Clothing,Casual Sneakers,107.82,42,36,David Kim
+548,2024-06-02,West,Clothing,Silk Dress Shirt,501.52,8,85,David Kim
+549,2025-02-28,North,Electronics,Tablet Air M2,3441.1,31,27,James Anderson
+550,2024-06-14,South,Electronics,Wireless Earbuds Z3,407.09,37,76,Carol Chen
+551,2024-05-17,Central,Electronics,Gaming Console S,904.95,11,34,Olivia Clark
+552,2024-07-03,Central,Food & Beverage,Gourmet Tea Collection,291.39,41,3,Olivia Clark
+553,2025-11-08,North,Electronics,Wireless Earbuds Z3,2356.18,31,112,Hector Patel
+554,2024-06-23,West,Food & Beverage,Gourmet Tea Collection,59.96,38,106,Maria Davis
+555,2024-07-05,Central,Sports,Resistance Band Set,402.03,44,44,Olivia Clark
+556,2025-04-09,Central,Sports,Running Shoes Ultra,521.24,25,17,Bob Martinez
+557,2024-01-17,West,Sports,Swimming Goggles Pro,1393.99,10,78,Bob Martinez
+558,2024-06-30,South,Sports,Swimming Goggles Pro,154.95,35,65,Maria Davis
+559,2024-04-30,East,Food & Beverage,Protein Bar Pack,272.56,35,106,Alice Johnson
+560,2025-11-25,South,Sports,Mountain Bike 27.5,791.12,3,90,Irene Thompson
+561,2025-03-15,West,Food & Beverage,Cold Press Juice 12pk,118.14,48,117,Maria Davis
+562,2025-12-14,Central,Electronics,Tablet Air M2,842.64,31,99,David Kim
+563,2024-03-26,North,Sports,Swimming Goggles Pro,864.6,13,1,Leo Garcia
+564,2024-01-08,Central,Sports,Running Shoes Ultra,1077.94,25,84,David Kim
+565,2025-12-05,North,Food & Beverage,Artisan Pasta Set,49.84,28,84,James Anderson
+566,2024-09-16,North,Sports,Mountain Bike 27.5,1164.17,40,36,Karen White
+567,2025-02-10,West,Food & Beverage,Gourmet Tea Collection,239.46,31,23,Frank Wilson
+568,2025-07-26,Central,Food & Beverage,Artisan Pasta Set,296.78,37,45,Maria Davis
+569,2025-12-23,South,Clothing,Premium Jacket,610.86,29,101,Leo Garcia
+570,2024-06-14,East,Clothing,Sports Hoodie,350.42,22,103,Irene Thompson
+571,2025-09-20,East,Clothing,Denim Jeans Classic,773.43,1,103,Bob Martinez
+572,2024-05-28,South,Sports,Mountain Bike 27.5,249.23,17,29,Frank Wilson
+573,2024-03-22,Central,Electronics,Tablet Air M2,4667.29,26,79,Karen White
+574,2025-06-17,North,Sports,Running Shoes Ultra,1895.77,12,82,Hector Patel
+575,2025-03-25,East,Clothing,Sports Hoodie,264.5,3,101,James Anderson
+576,2025-06-06,Central,Clothing,Sports Hoodie,177.11,3,47,David Kim
+577,2025-11-01,East,Clothing,Premium Jacket,797.61,50,52,Frank Wilson
+578,2025-11-16,South,Food & Beverage,Gourmet Tea Collection,76.09,1,95,Leo Garcia
+579,2024-03-11,East,Sports,Resistance Band Set,1474.19,36,118,James Anderson
+580,2024-12-22,North,Furniture,Standing Desk Oak,1878.14,13,59,Olivia Clark
+581,2025-02-17,Central,Electronics,Smart TV 55in,1040.17,33,14,Irene Thompson
+582,2024-03-15,Central,Furniture,Bookshelf Modern,2848.99,33,33,Olivia Clark
+583,2025-07-04,Central,Furniture,Sofa Sectional L,2903.26,37,62,Maria Davis
+584,2024-09-06,North,Food & Beverage,Cold Press Juice 12pk,271.03,2,62,Bob Martinez
+585,2024-09-21,East,Food & Beverage,Protein Bar Pack,209.54,15,103,Frank Wilson
+586,2025-02-26,North,Sports,Swimming Goggles Pro,98.67,17,32,Elena Rodriguez
+587,2024-04-05,South,Furniture,Ergonomic Desk Chair,1730.47,12,61,Frank Wilson
+588,2024-12-28,West,Sports,Resistance Band Set,430.95,48,88,Olivia Clark
+589,2024-07-13,South,Clothing,Casual Sneakers,601.57,17,27,David Kim
+590,2024-07-26,West,Sports,Resistance Band Set,379.51,7,16,Olivia Clark
+591,2024-03-21,South,Sports,Running Shoes Ultra,1547.35,35,6,Nathan Brown
+592,2025-05-08,North,Sports,Resistance Band Set,1025.29,37,112,Elena Rodriguez
+593,2025-05-17,West,Sports,Resistance Band Set,843.93,49,74,Carol Chen
+594,2024-02-25,Central,Food & Beverage,Cold Press Juice 12pk,283.1,3,65,Frank Wilson
+595,2025-02-07,West,Food & Beverage,Organic Coffee Blend,215.51,30,41,Leo Garcia
+596,2024-01-09,East,Clothing,Denim Jeans Classic,485.76,21,47,James Anderson
+597,2024-09-22,West,Sports,Resistance Band Set,535.31,31,79,Frank Wilson
+598,2025-01-09,West,Food & Beverage,Cold Press Juice 12pk,78.95,45,97,Frank Wilson
+599,2025-01-08,South,Furniture,Sofa Sectional L,662.68,9,74,Karen White
+600,2024-08-22,East,Furniture,Standing Desk Oak,1732.72,25,26,Carol Chen
